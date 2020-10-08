@@ -1,0 +1,32 @@
+a {
+    color: black;
+}
+
+aside {
+    background: #e0f7fa;
+    height: 100vh;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .4);
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    width: 75px;
+    display: block;
+    margin: 0 auto;
+}
+
+.icon {
+    margin: 5px 15px 5px 5px;
+    color: black;
+}
+
+.footer {
+    width: 100%;
+    padding: 15px;
+    position: absolute;
+    margin: 0 auto;
+    bottom: 0;
+}
