@@ -3,7 +3,6 @@
         <a class="navbar-brand" id="zonnevelt-text" href="#">Zonnevelt</a>
     </div>
 </nav>
-
 <div class="container-fluid" id="container-top">
     <div class="container">
         <div class="row">
@@ -11,22 +10,27 @@
                 <div id="div-container">
                     <h1 id="h1text">Een huisartsenpost maar dan digitaal.</h1>
                     <h3 id="h3text">Ook benieuwd of klachten?</h3>
-                    <button type="button" class="btn btn-primary btn-lg"> Inloggen</button>
+<!--                    <button type="button" class="btn btn-primary btn-lg"> Inloggen</button>-->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="loginButton">
+                         Inloggen
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
+
 <section id="section-mid">
     <div class="row" id="div-row">
-        <div class=" col-sm-6" id="div-col-sm-6-1">
+        <div class=" col-sm-6" id="photo-div">
             <div id="div3">
                 <img src="../../../assets/images/doctor.png" height="400" width="400" id="img-2"/>
             </div>
         </div>
-        <div class=" col-sm-6" id="2">
-            <div id="div4">
+        <div class=" col-sm-6" id="div2">
                 <h3>
                     <h1>Lorem Ipsum?</h1>
                     <h3>
@@ -41,9 +45,39 @@
                         Duis ac eros semper turpis facilisis pulvinar. Nulla vel iaculis neque, ac aliquam nulla.
                     </h3>
                 </h3>
-            </div>
         </div>
     </div>
 </section>
-<footer id="footer"><h1>Spoednummer bellen? 06 57389293</h1></footer>
+<footer id="footer">Spoednummer bellen? 06 57389293</footer>
 
+<!-- Modal when button is triggered -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" >Inloggen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+<!--                Form in comments, modal gaat niet meer weg-->
+                <form role="form" class="login-form">
+                    <div class="form-group">
+<!--                        Hier kan een regex worden toegevoed ter validatie-->
+<!--                        Voorbeeld: pattern="[A-Za-z]{3}"-->
+                        <label for="form-email">E-mailadres:</label>
+                        <input type="email" name="form-email" placeholder="E-mailadres" class="form-username form-control" id="form-email"  title="Three letter country code">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-password">Wachtwoord:</label>
+                        <input type="password" name="form-password" placeholder="Wachtwoord" class="form-password form-control" id="form-password">
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary btn-sm" id="form-login">Inloggen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
