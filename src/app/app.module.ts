@@ -10,7 +10,7 @@ import {ComponentsModule} from './components/components.module';
     imports: [
         AppRoutingModule,
         ComponentsModule,
-        RouterModule
+        RouterModule,
     ],
     declarations: [
         AppComponent,
