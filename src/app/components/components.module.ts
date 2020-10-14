@@ -9,7 +9,8 @@ import { HomeComponent } from './home/home.component';
         HomeComponent
     ],
     exports: [
-        SidenavComponent
+        SidenavComponent,
+        HomeComponent
     ],
     imports: [
         CommonModule

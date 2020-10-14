@@ -7,17 +7,17 @@ import {BrowserModule} from '@angular/platform-browser';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'home',
         pathMatch: 'full'
-    },
-    {
-        path: '',
-        component: MainLayoutComponent,
-        children: [{
-            path: '',
-            loadChildren: () => import('./layouts/main-layout/main-layout.module').then(m => m.MainLayoutModule)
-        }]
     }
+    // {
+    //     path: '',
+    //     component: MainLayoutComponent,
+    //     children: [{
+    //         path: '',
+    //         loadChildren: () => import('./layouts/main-layout/main-layout.module').then(m => m.MainLayoutModule)
+    //     }]
+    // }
 ];
 
 @NgModule({
