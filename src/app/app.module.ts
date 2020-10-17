@@ -5,11 +5,15 @@ import {AppComponent} from './app.component';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component';
 import {RouterModule} from '@angular/router';
 import {ComponentsModule} from './components/components.module';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
     imports: [
         AppRoutingModule,
         ComponentsModule,
+        BrowserModule,
+        BrowserAnimationsModule,
         RouterModule,
     ],
     declarations: [
