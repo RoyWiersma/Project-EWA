@@ -5,12 +5,14 @@ import {AppComponent} from './app.component';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component';
 import {RouterModule} from '@angular/router';
 import {ComponentsModule} from './components/components.module';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
     imports: [
         AppRoutingModule,
         ComponentsModule,
-        RouterModule
+        RouterModule,
+        FormsModule
     ],
     declarations: [
         AppComponent,

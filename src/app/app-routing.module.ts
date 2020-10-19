@@ -3,21 +3,21 @@ import {Routes, RouterModule} from '@angular/router';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component';
 import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
+import {HomeComponent} from './components/home/home.component';
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
+        component: HomeComponent
+    },
+    {
+        path: 'home',
+        component: MainLayoutComponent,
+        children: [{
+            path: '',
+            loadChildren: () => import('./layouts/main-layout/main-layout.module').then(m => m.MainLayoutModule)
+        }]
     }
-    // {
-    //     path: '',
-    //     component: MainLayoutComponent,
-    //     children: [{
-    //         path: '',
-    //         loadChildren: () => import('./layouts/main-layout/main-layout.module').then(m => m.MainLayoutModule)
-    //     }]
-    // }
 ];
 
 @NgModule({
