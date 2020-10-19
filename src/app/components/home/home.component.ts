@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
     tempLogin(): void {// Password: TestPass123
         const{userName, password} = this;
-        const tempUser: User = new User(1, 'hulsnoah@gmail.com', 'Noah', 'Huls', null, 1, 1, 'm@qen#20NyTestPass123', 'm@qen#20Ny', true);
+        const tempUser: User = new User(1, 'test@test.nl', 'Noah', 'Huls', null, 1, 1, 'm@qen#20NyTestPass123', 'm@qen#20Ny', true);
         if (userName === tempUser.UserName && tempUser.Password === tempUser.Salt + password){
             $('#exampleModalCenter').modal('hide');
             this.router.navigate(['home']);
