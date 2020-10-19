@@ -7,7 +7,7 @@ import {ComponentsModule} from './components/components.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
-import {HomeComponent} from './components/home/home.component';
+import {HomeComponent} from './views/home/home.component';
 import {RouterModule} from '@angular/router';
 
 @NgModule({

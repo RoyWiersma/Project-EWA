@@ -42,14 +42,14 @@ export class AgendaComponent {
     actions: CalendarEventAction[] = [
         {
             label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-            a11yLabel: 'Edit',
+            a11yLabel: 'Bewerken',
             onClick: ({event}: { event: CalendarEvent }): void => {
                 this.handleEvent('Edited', event);
             },
         },
         {
             label: '<i class="fas fa-fw fa-trash-alt"></i>',
-            a11yLabel: 'Delete',
+            a11yLabel: 'Verwijderen',
             onClick: ({event}: { event: CalendarEvent }): void => {
                 this.events = this.events.filter((iEvent) => iEvent !== event);
                 this.handleEvent('Deleted', event);
@@ -63,7 +63,7 @@ export class AgendaComponent {
         {
             start: subDays(startOfDay(new Date()), 1),
             end: addDays(new Date(), 1),
-            title: 'A 3 day event',
+            title: 'Een 3 daags item',
             color: colors.red,
             actions: this.actions,
             allDay: true,
@@ -75,28 +75,16 @@ export class AgendaComponent {
         },
         {
             start: startOfDay(new Date()),
-            title: 'An event with no end date',
+            title: 'Een item with no end date',
             color: colors.yellow,
             actions: this.actions,
         },
         {
             start: subDays(endOfMonth(new Date()), 3),
             end: addDays(endOfMonth(new Date()), 3),
-            title: 'A long event that spans 2 months',
+            title: 'Een event van 2 maanden',
             color: colors.blue,
             allDay: true,
-        },
-        {
-            start: addHours(startOfDay(new Date()), 2),
-            end: addHours(new Date(), 2),
-            title: 'A draggable and resizable event',
-            color: colors.yellow,
-            actions: this.actions,
-            resizable: {
-                beforeStart: true,
-                afterEnd: true,
-            },
-            draggable: true,
         },
     ];
 
@@ -136,7 +124,7 @@ export class AgendaComponent {
         this.events = [
             ...this.events,
             {
-                title: 'New event',
+                title: 'Nieuw item',
                 start: startOfDay(new Date()),
                 end: endOfDay(new Date()),
                 color: colors.red,
