@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router';
 import {ComponentsModule} from './components/components.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
     imports: [
@@ -15,6 +16,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         BrowserModule,
         BrowserAnimationsModule,
         RouterModule,
+        FormsModule
     ],
     declarations: [
         AppComponent,

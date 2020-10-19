@@ -2,15 +2,15 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component';
 import {CommonModule} from '@angular/common';
+import {HomeComponent} from './components/home/home.component';
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
+        component: HomeComponent
     },
     {
-        path: '',
+        path: 'home',
         component: MainLayoutComponent,
         children: [{
             path: '',
@@ -26,7 +26,7 @@ const routes: Routes = [
             useHash: true
         })
     ],
-    exports: []
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 }
