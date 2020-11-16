@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {LoginService} from '../../services/login.service';
+import {HttpResponse} from '@angular/common/http';
 declare var $: any;
 
 @Component({
@@ -8,22 +10,26 @@ declare var $: any;
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-    userName: string;
+
+    email: string;
     password: string;
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private loginService: LoginService) {
     }
 
     ngOnInit(): void {
     }
 
-    tempLogin(): void {// Password: TestPass123
-        const{userName, password} = this;
-        const tempUser: User = new User(1, 'test@test.nl', 'Noah', 'Huls', null, 1, 1, 'm@qen#20NyTestPass123', 'm@qen#20Ny', true);
-        if (userName === tempUser.UserName && tempUser.Password === tempUser.Salt + password){
-            $('#exampleModalCenter').modal('hide');
-            this.router.navigate(['home']);
-        }
+    submitLoginForm(): void {
+        const { email, password } = this;
+        this.loginService.postLoginForm(email, password)
+            .subscribe((response: HttpResponse<any>) => {
+                localStorage.setItem('jwt', response.headers.get('authorization'));
+                $('#exampleModalCenter').modal('hide');
+                this.router.navigate(['home']);
+            }, error => {
+                console.log(error);
+            });
     }
 }
 

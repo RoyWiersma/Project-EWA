@@ -28,16 +28,14 @@ public class User {
     @Column(unique = true, length = 20)
     private String mobileNumber;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private GPC gpc;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 32)
-    private String salt;
-
-    public User(String firstName, String lastName, String middleName, String email, String phoneNumber, String mobileNumber, GPC gpc, String password, String salt) {
+    public User(Integer id, String firstName, String lastName, String middleName, String email, String phoneNumber, String mobileNumber, GPC gpc, String password) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -46,7 +44,6 @@ public class User {
         this.mobileNumber = mobileNumber;
         this.gpc = gpc;
         this.password = password;
-        this.salt = salt;
     }
 
     public User() { }
@@ -121,13 +118,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 }

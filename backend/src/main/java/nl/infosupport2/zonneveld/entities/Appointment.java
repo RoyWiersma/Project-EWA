@@ -1,6 +1,11 @@
 package nl.infosupport2.zonneveld.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,22 +17,34 @@ public class Appointment {
     private Integer id;
 
     @Column(nullable = false)
+    @NotNull(message = "Begin datum van de afspraak is verplicht")
+    @FutureOrPresent(message = "Afspraak moet vandaag of in de toekomst zijn")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime start;
 
     @Column(nullable = false)
+    @NotNull(message = "Eind datum van de afspraak is verplicht")
+    @FutureOrPresent(message = "Afspraak moet vandaag of in de toekomst zijn")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime end;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
+    @NotNull(message = "Doktor is verplicht")
     private User doctor;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
+    @NotNull(message = "Patient is verplicht")
     private User patient;
 
     @Column(nullable = false, length = 45)
+    @NotEmpty(message = "Titel voor afspraak is verplicht")
     private String title;
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Column(nullable = false)
+    private boolean onLocation = false;
 
     public Appointment() {}
 
@@ -94,6 +111,14 @@ public class Appointment {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isOnLocation() {
+        return onLocation;
+    }
+
+    public void setOnLocation(boolean onLocation) {
+        this.onLocation = onLocation;
     }
 }
 
