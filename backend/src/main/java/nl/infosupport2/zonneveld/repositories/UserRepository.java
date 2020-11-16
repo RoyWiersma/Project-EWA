@@ -3,6 +3,7 @@ package nl.infosupport2.zonneveld.repositories;
 import nl.infosupport2.zonneveld.entities.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import java.util.Optional;
 
 import java.util.Optional;
 
