@@ -27,7 +27,7 @@ public class GlobalValidationExceptionHandler extends ResponseEntityExceptionHan
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", new Date());
         body.put("status", status.value());
-        body.put("message", "Ëën of meerdere velden zijn niet geldig");
+        body.put("message", "Één of meerdere velden zijn niet geldig");
 
         Map<String, String> errors = new HashMap<>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
