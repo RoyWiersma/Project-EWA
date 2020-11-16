@@ -1,32 +1,51 @@
 package nl.infosupport2.zonneveld.controllers;
 
-import nl.infosupport2.zonneveld.entities.GPC;
 import nl.infosupport2.zonneveld.entities.User;
+import nl.infosupport2.zonneveld.exceptions.ItemNotFoundException;
 import nl.infosupport2.zonneveld.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/user")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
-    @GetMapping(path = "")
-    public Iterable<User> getAllUsers() {
-        return userRepository.findAll();
+    @Autowired
+    public UserController(UserRepository repository, PasswordEncoder passwordEncoder) {
+        this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping(path = "")
-    public User addNewUser() {
-        GPC gpc = new GPC("De test praktijk", "Test straat 1", "1234 AB", "test@test.nl", "0229 274 006", null, false);
-        User user = new User("Test", "Gebruiker", "de", "Visstick@test.nl", null, "06 22 83 03 82", gpc, "Vissticks", "de");
-        userRepository.save(user);
+    @GetMapping("")
+    public Iterable<User> getAllUsers() {
+        return repository.findAll();
+    }
 
-        return user;
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable int id) {
+        return repository.findById(id)
+            .orElseThrow(() -> new ItemNotFoundException(String.format("De gebruiker met id '%d' bestaat niet", id)));
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Map<String, Object>> registerUser(@RequestBody User user) {
+        User newUser = user;
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        repository.save(newUser);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "Uw account is aangemaakt");
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
