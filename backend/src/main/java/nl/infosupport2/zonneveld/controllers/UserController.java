@@ -1,5 +1,7 @@
 package nl.infosupport2.zonneveld.controllers;
 
+import nl.infosupport2.zonneveld.entities.GP;
+import nl.infosupport2.zonneveld.entities.Patient;
 import nl.infosupport2.zonneveld.entities.User;
 import nl.infosupport2.zonneveld.exceptions.ItemNotFoundException;
 import nl.infosupport2.zonneveld.repositories.UserRepository;
@@ -36,11 +38,22 @@ public class UserController {
             .orElseThrow(() -> new ItemNotFoundException(String.format("De gebruiker met id '%d' bestaat niet", id)));
     }
 
-    @PostMapping("")
-    public ResponseEntity<Map<String, Object>> registerUser(@RequestBody User user) {
-        User newUser = user;
-        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        repository.save(newUser);
+    @PostMapping("/register/gp")
+    public ResponseEntity<Map<String, Object>> registerUser(@RequestBody GP user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        repository.save(user);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "Uw account is aangemaakt");
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/register/patient")
+    public ResponseEntity<Map<String, Object>> registerUser(@RequestBody Patient user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        repository.save(user);
 
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);

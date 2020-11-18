@@ -1,35 +1,24 @@
 package nl.infosupport2.zonneveld.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import java.io.Serializable;
+import javax.persistence.*;
 
 @Entity
-public class GP implements Serializable {
-
-    @Id
-    @OneToOne(optional = false)
-    private User user;
+@DiscriminatorValue("gp")
+@DiscriminatorColumn(name = "type")
+public class GP extends User {
 
     @Column(length = 45)
     private String speciality;
 
-    public GP(User user, String speciality) {
-        this.user = user;
+    @Column()
+    private boolean isAdmin = false;
+
+    public GP(String speciality, boolean isAdmin) {
         this.speciality = speciality;
+        this.isAdmin = isAdmin;
     }
 
     public GP() { }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public String getSpeciality() {
         return speciality;
@@ -37,5 +26,13 @@ public class GP implements Serializable {
 
     public void setSpeciality(String speciality) {
         this.speciality = speciality;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

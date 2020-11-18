@@ -3,6 +3,8 @@ package nl.infosupport2.zonneveld.entities;
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 public class User {
 
     @Id
