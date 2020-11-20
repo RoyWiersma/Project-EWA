@@ -1,6 +1,9 @@
 package nl.infosupport2.zonneveld.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("gp")
@@ -13,9 +16,14 @@ public class GP extends User {
     @Column()
     private boolean isAdmin = false;
 
-    public GP(String speciality, boolean isAdmin) {
+    @JsonBackReference
+    @OneToMany(mappedBy = "doctor")
+    private List<Appointment> appointments;
+
+    public GP(String speciality, boolean isAdmin, List<Appointment> appointments) {
         this.speciality = speciality;
         this.isAdmin = isAdmin;
+        this.appointments = appointments;
     }
 
     public GP() { }
@@ -34,5 +42,13 @@ public class GP extends User {
 
     public void setIsAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
     }
 }
