@@ -1,6 +1,8 @@
 package nl.infosupport2.zonneveld.controllers;
 
 import nl.infosupport2.zonneveld.entities.Appointment;
+import nl.infosupport2.zonneveld.entities.GP;
+import nl.infosupport2.zonneveld.entities.Patient;
 import nl.infosupport2.zonneveld.entities.User;
 import nl.infosupport2.zonneveld.exceptions.ItemNotFoundException;
 import nl.infosupport2.zonneveld.repositories.AppointmentRepository;
@@ -8,10 +10,13 @@ import nl.infosupport2.zonneveld.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,11 +33,17 @@ public class AgendaController {
     }
 
     @GetMapping("")
-    public Iterable<Appointment> getAllAppointments() {
-        User user = userRepository.findById(1)
-            .orElseThrow(() -> new ItemNotFoundException("Doktor niet gevonden"));
+    public List<Appointment> getAllAppointments() throws UserPrincipalNotFoundException {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new UserPrincipalNotFoundException(email));
 
-        return appointmentRepository.getAllByDoctor(user);
+        if (user instanceof GP)
+            return ((GP) user).getAppointments();
+        else if (user instanceof Patient)
+            return ((Patient) user).getAppointments();
+        else
+            throw new UserPrincipalNotFoundException(email);
     }
 
     @GetMapping("/{id}")
@@ -42,23 +53,44 @@ public class AgendaController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Map<String, Object>> saveAppointment(@Valid @RequestBody Appointment appointment) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("message", "Afspraak is opgeslagen");
-        response.put("appointment", appointmentRepository.save(appointment));
+    public ResponseEntity<Map<String, Object>> saveAppointment(@Valid @RequestBody Appointment appointment) throws UserPrincipalNotFoundException {
+        try {
+            String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userRepository.findUserByEmail(email)
+                    .orElseThrow(() -> new UserPrincipalNotFoundException(email));
 
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+            if (user instanceof Patient)
+                appointment.setPatient((Patient) user);
+            if (user instanceof GP)
+                appointment.setDoctor((GP) user);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Afspraak is opgeslagen");
+            response.put("appointment", appointmentRepository.save(appointment));
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @PutMapping("/{id}")
-    public Map<String, Object> updateAppointment(@PathVariable Integer id, @Valid @RequestBody Appointment editedAppointment) {
+    public Map<String, Object> updateAppointment(@PathVariable Integer id, @Valid @RequestBody Appointment editedAppointment) throws UserPrincipalNotFoundException {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new UserPrincipalNotFoundException(email));
+
         Appointment newAppointment = appointmentRepository.findById(id)
             .map(appointment -> {
+                if (user instanceof Patient)
+                    appointment.setDoctor(editedAppointment.getDoctor());
+                if (user instanceof GP)
+                    appointment.setPatient(editedAppointment.getPatient());
+
                 appointment.setStart(editedAppointment.getStart());
                 appointment.setEnd(editedAppointment.getEnd());
-                appointment.setPatient(editedAppointment.getPatient());
-                appointment.setDoctor(editedAppointment.getDoctor());
                 appointment.setTitle(editedAppointment.getTitle());
                 appointment.setDescription(editedAppointment.getDescription());
                 appointment.setOnLocation(editedAppointment.isOnLocation());

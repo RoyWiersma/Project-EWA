@@ -33,7 +33,7 @@ export class AgendaService {
 
         return this.httpClient.post(
             this.API_URL,
-            JSON.stringify({title, description, patient: {id: patient}, doctor: {id: 1}, start, end, onLocation}),
+            JSON.stringify({title, description, patient: {id: patient}, start, end, onLocation}),
             {
                 headers: {
                     authorization: localStorage.getItem('jwt') || null,
@@ -50,7 +50,7 @@ export class AgendaService {
 
         return this.httpClient.put(
             `${this.API_URL}/${id}`,
-            JSON.stringify({title, description, patient: {id: patient}, doctor: {id: 1}, start, end, onLocation}),
+            JSON.stringify({title, description, patient: {id: patient}, start, end, onLocation}),
             {
                 headers: {
                     authorization: localStorage.getItem('jwt') || null,

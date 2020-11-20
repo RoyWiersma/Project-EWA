@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Patient} from '../models/patient';
 import {Observable} from 'rxjs';
 
@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 })
 export class PatientService {
 
-    private API_URL = 'http://localhost:8085/user';
+    private API_URL = 'http://localhost:8085/patient';
     private patients: Patient[];
 
     constructor(private http: HttpClient) {

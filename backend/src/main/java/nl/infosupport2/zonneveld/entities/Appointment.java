@@ -29,12 +29,10 @@ public class Appointment {
     private LocalDateTime end;
 
     @ManyToOne(optional = false)
-    @NotNull(message = "Doktor is verplicht")
-    private User doctor;
+    private GP doctor;
 
     @ManyToOne(optional = false)
-    @NotNull(message = "Patient is verplicht")
-    private User patient;
+    private Patient patient;
 
     @Column(nullable = false, length = 45)
     @NotEmpty(message = "Titel voor afspraak is verplicht")
@@ -48,7 +46,7 @@ public class Appointment {
 
     public Appointment() {}
 
-    public Appointment(LocalDateTime start, LocalDateTime end, User doctor, User patient, String title, String description) {
+    public Appointment(LocalDateTime start, LocalDateTime end, GP doctor, Patient patient, String title, String description) {
         this.start = start;
         this.end = end;
         this.doctor = doctor;
@@ -81,19 +79,19 @@ public class Appointment {
         this.end = end;
     }
 
-    public User getDoctor() {
+    public GP getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(User doctor) {
+    public void setDoctor(GP doctor) {
         this.doctor = doctor;
     }
 
-    public User getPatient() {
+    public Patient getPatient() {
         return patient;
     }
 
-    public void setPatient(User patient) {
+    public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
