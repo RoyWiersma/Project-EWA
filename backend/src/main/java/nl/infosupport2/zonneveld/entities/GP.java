@@ -1,19 +1,23 @@
 package nl.infosupport2.zonneveld.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.infosupport2.zonneveld.views.UserView;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("gp")
+@DiscriminatorValue(User.Type.GP)
 @DiscriminatorColumn(name = "type")
 public class GP extends User {
 
     @Column(length = 45)
+    @JsonView(UserView.class)
     private String speciality;
 
     @Column()
+    @JsonView(UserView.class)
     private boolean isAdmin = false;
 
     @JsonBackReference

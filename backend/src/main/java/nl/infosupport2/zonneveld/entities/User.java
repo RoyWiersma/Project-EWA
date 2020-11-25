@@ -1,5 +1,8 @@
 package nl.infosupport2.zonneveld.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.infosupport2.zonneveld.views.UserView;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,27 +10,38 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "type")
 public class User {
 
+    public static class Type {
+        public static final String GP = "gp";
+        public static final String PATIENT = "patient";
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private Integer id;
 
     @Column(nullable = false, length = 100)
+    @JsonView(UserView.class)
     private String firstName;
 
     @Column(nullable = false, length = 200)
+    @JsonView(UserView.class)
     private String lastName;
 
     @Column(length = 100)
+    @JsonView(UserView.class)
     private String middleName;
 
     @Column(unique = true, length = 320)
+    @JsonView(UserView.class)
     private String email;
 
     @Column(unique = true, length = 20)
+    @JsonView(UserView.class)
     private String phoneNumber;
 
     @Column(unique = true, length = 20)
+    @JsonView(UserView.class)
     private String mobileNumber;
 
     @ManyToOne(optional = false)

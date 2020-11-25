@@ -24,47 +24,15 @@ export class HomeComponent implements OnInit {
         const { email, password } = this;
         this.loginService.postLoginForm(email, password)
             .subscribe((response: HttpResponse<any>) => {
-                localStorage.setItem('jwt', response.headers.get('authorization'));
-                $('#exampleModalCenter').modal('hide');
-                this.router.navigate(['home']);
+                if (response !== null) {
+                    localStorage.setItem('jwt', response.headers.get('authorization'));
+                    $('#exampleModalCenter').modal('hide');
+                    this.router.navigate(['home']);
+                } else {
+                    // TODO: geef error aan login form
+                }
             }, error => {
                 console.log(error);
             });
-    }
-}
-
-class User {
-    Id: number;
-    UserName: string;
-    FirstName: string;
-    LastName: string;
-    MiddleName: string;
-    ContactId: number;
-    GPCId: number;
-    Password: string;
-    Salt: string;
-    IsGP: boolean;
-
-    constructor(Id: number,
-                UserName: string,
-                FirstName: string,
-                LastName: string,
-                MiddleName: string,
-                ContactId: number,
-                GPCId: number,
-                Password: string,
-                Salt: string,
-                IsGP: boolean
-    ) {
-        this.Id = Id;
-        this.UserName = UserName;
-        this.FirstName = FirstName;
-        this.LastName = LastName;
-        this.MiddleName = MiddleName;
-        this.ContactId = ContactId;
-        this.GPCId = GPCId;
-        this.Password = Password;
-        this.Salt = Salt;
-        this.IsGP = IsGP;
     }
 }

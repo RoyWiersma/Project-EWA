@@ -1,10 +1,12 @@
 package nl.infosupport2.zonneveld.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import nl.infosupport2.zonneveld.entities.GP;
 import nl.infosupport2.zonneveld.entities.Patient;
 import nl.infosupport2.zonneveld.entities.User;
 import nl.infosupport2.zonneveld.exceptions.ItemNotFoundException;
 import nl.infosupport2.zonneveld.repositories.UserRepository;
+import nl.infosupport2.zonneveld.views.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,20 @@ public class UserController {
     @GetMapping("")
     public Iterable<User> getAllUsers() {
         return repository.findAll();
+    }
+
+    @GetMapping("/email")
+    @JsonView(UserView.class)
+    public Map<String, Object> getUserByEmail(@RequestParam String email) {
+        Map<String, Object> response = new HashMap<>();
+        User user = repository.findUserByEmail(email)
+                .orElseThrow(() -> new ItemNotFoundException(String.format("De gebruiker met e-mail '%s' bestaat niet", email)));
+
+        response.put("success", true);
+        response.put("user", user);
+        response.put("type", (user instanceof GP) ? User.Type.GP : (user instanceof Patient) ? User.Type.PATIENT : null);
+
+        return response;
     }
 
     @GetMapping("/{id}")

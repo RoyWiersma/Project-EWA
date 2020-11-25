@@ -3,7 +3,7 @@ import {Observable, Subject} from 'rxjs';
 import {CalendarEvent, CalendarView} from 'angular-calendar';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AgendaService} from '../../services/agenda.service';
-import {AgendaItem} from '../../models/agendaItem';
+import {AgendaItem} from '../../models/AgendaItem';
 import {PatientService} from '../../services/patient.service';
 import {map} from 'rxjs/operators';
 

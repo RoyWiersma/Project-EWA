@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue(value = "patient")
+@DiscriminatorValue(User.Type.PATIENT)
 @DiscriminatorColumn(name = "type")
 public class Patient extends User {
 
