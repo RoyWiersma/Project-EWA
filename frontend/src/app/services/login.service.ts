@@ -45,7 +45,7 @@ export class LoginService {
                     console.error(`Something went horribly wrong, user type does not exist ${user.type}`);
                 }
 
-                console.log(this.loggedInUser);
+                // console.log(this.loggedInUser);
             });
 
             return response;

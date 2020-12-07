@@ -33,6 +33,12 @@
                 Medicijnen
             </a>
         </div>
+        <div *ngIf="loggedInGp.isAdmin" class="nav-link">
+            <a routerLink="../home/admin">
+                <i class="fas fa-user-lock mr-4"></i>
+                Admin
+            </a>
+        </div>
         <div class="nav-link">
             <a routerLink="/">
                 <i class="fas fa-sign-out-alt mr-4"></i>
