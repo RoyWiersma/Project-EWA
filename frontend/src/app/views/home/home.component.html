@@ -60,6 +60,9 @@
             </div>
 
             <div class="modal-body">
+                <div  class="alert alert-danger" role="alert" *ngIf="!error">
+                    E-mail of wachtwoord onjuist.
+                </div>
                 <form role="form" class="login-form">
                     <div class="form-group">
                         <label for="form-email">E-mailadres:</label>

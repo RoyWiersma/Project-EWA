@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
 
     email: string;
     password: string;
+    error = true;
 
     constructor(private router: Router, private loginService: LoginService) {
     }
@@ -25,13 +26,15 @@ export class HomeComponent implements OnInit {
         this.loginService.postLoginForm(email, password)
             .subscribe((response: HttpResponse<any>) => {
                 if (response !== null) {
+                    this.error = true;
                     localStorage.setItem('jwt', response.headers.get('authorization'));
                     $('#exampleModalCenter').modal('hide');
                     this.router.navigate(['home']);
                 } else {
-                    // TODO: geef error aan login form
+                    this.error = false;
                 }
             }, error => {
+                this.error = false;
                 console.log(error);
             });
     }
