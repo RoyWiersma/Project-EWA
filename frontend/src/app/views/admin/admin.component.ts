@@ -25,18 +25,25 @@ export class AdminComponent implements OnInit {
   }
 
   removeAdmin(admin: GP): void{
-        this.service.setNoAdmin(admin).subscribe(
-            (results: GP) => {
-                this.ngOnInit();
-            }
-        );
+        if (this.allAdmin.length === 1){
+            alert('De laatste administrator kan niet worden verwijderd.');
+        }
+        else if (confirm('Wilt u deze persoon zijn administrator rechten weghalen?')){
+            this.service.setNoAdmin(admin).subscribe(
+                (results: GP) => {
+                    this.ngOnInit();
+                }
+            );
+        }
   }
 
   giveAdmin(gp: GP): void {
-        this.service.setAdmin(gp).subscribe(
-            (results: GP) => {
-                this.ngOnInit();
-            }
-        );
+        if (confirm('Wilt u deze persoon administrator maken?')){
+            this.service.setAdmin(gp).subscribe(
+                (results: GP) => {
+                    this.ngOnInit();
+                }
+            );
+        }
   }
 }
