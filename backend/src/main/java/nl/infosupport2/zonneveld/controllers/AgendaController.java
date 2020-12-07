@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,18 +31,18 @@ public class AgendaController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("")
-    public List<Appointment> getAllAppointments() throws UserPrincipalNotFoundException {
+    @GetMapping
+    public List<Appointment> getAllAppointments() {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new UserPrincipalNotFoundException(email));
+                .orElseThrow(() -> new ItemNotFoundException("Gebruiker niet gevonen"));
 
         if (user instanceof GP)
             return ((GP) user).getAppointments();
         else if (user instanceof Patient)
             return ((Patient) user).getAppointments();
         else
-            throw new UserPrincipalNotFoundException(email);
+            throw new ItemNotFoundException("Gebruiker niet gevonen");
     }
 
     @GetMapping("/{id}")
@@ -52,12 +51,12 @@ public class AgendaController {
             .orElseThrow(() -> new ItemNotFoundException(String.format("De afspraak met id '%d' bestaat niet", id)));
     }
 
-    @PostMapping("")
-    public ResponseEntity<Map<String, Object>> saveAppointment(@Valid @RequestBody Appointment appointment) throws UserPrincipalNotFoundException {
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> saveAppointment(@Valid @RequestBody Appointment appointment) {
         try {
             String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userRepository.findUserByEmail(email)
-                    .orElseThrow(() -> new UserPrincipalNotFoundException(email));
+                    .orElseThrow(() -> new ItemNotFoundException("Gebruiker niet gevonen"));
 
             if (user instanceof Patient)
                 appointment.setPatient((Patient) user);
@@ -77,10 +76,10 @@ public class AgendaController {
     }
 
     @PutMapping("/{id}")
-    public Map<String, Object> updateAppointment(@PathVariable Integer id, @Valid @RequestBody Appointment editedAppointment) throws UserPrincipalNotFoundException {
+    public Map<String, Object> updateAppointment(@PathVariable Integer id, @Valid @RequestBody Appointment editedAppointment) {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new UserPrincipalNotFoundException(email));
+                .orElseThrow(() -> new ItemNotFoundException("Gebruiker niet gevonen"));
 
         Appointment newAppointment = appointmentRepository.findById(id)
             .map(appointment -> {

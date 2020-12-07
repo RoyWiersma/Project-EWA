@@ -8,6 +8,8 @@ import {DashboardComponent} from '../../views/dashboard/dashboard.component';
 import {FormsModule} from '@angular/forms';
 import {MainLayoutRoutingModule} from './main-layout-routing.module';
 import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {ChatComponent} from '../../views/chat/chat.component';
+import {AdminComponent} from '../../views/admin/admin.component';
 
 @NgModule({
     imports: [
@@ -24,7 +26,9 @@ import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from '
     ],
     declarations: [
         AgendaComponent,
-        DashboardComponent
+        DashboardComponent,
+        ChatComponent,
+        AdminComponent,
     ],
     providers: [
         { provide: OWL_DATE_TIME_LOCALE, useValue: 'nl' }

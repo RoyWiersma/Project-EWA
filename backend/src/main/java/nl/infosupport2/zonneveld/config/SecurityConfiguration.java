@@ -1,4 +1,4 @@
-package nl.infosupport2.zonneveld;
+package nl.infosupport2.zonneveld.config;
 
 import nl.infosupport2.zonneveld.filters.CustomAuthenticationFilter;
 import nl.infosupport2.zonneveld.filters.CustomAuthorizationFilter;

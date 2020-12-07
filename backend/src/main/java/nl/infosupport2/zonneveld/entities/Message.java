@@ -1,6 +1,13 @@
 package nl.infosupport2.zonneveld.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.infosupport2.zonneveld.views.UserView;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -8,20 +15,29 @@ import java.time.LocalDateTime;
 public class Message implements Serializable {
 
     @Id
-    @OneToOne(optional = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
+    private Long id;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonBackReference
     private Chat chat;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotNull(message = "Bericht is verplicht")
+    @JsonView(UserView.PublicView.class)
     private String text;
 
+    @JsonView(UserView.PublicView.class)
     private String media;
 
-    @Id
     @Column(nullable = false)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonView(UserView.PublicView.class)
     private LocalDateTime dateTime;
 
-    @Id
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonView(UserView.PublicView.class)
     private User sender;
 
     public Message(Chat chat, String text, String media, LocalDateTime dateTime, User sender) {
@@ -33,6 +49,14 @@ public class Message implements Serializable {
     }
 
     public Message() { }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Chat getChat() {
         return chat;

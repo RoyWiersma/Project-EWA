@@ -191,6 +191,11 @@
                             Op locatie
                         </label>
                     </div>
+                    <div *ngIf="appointmentForm.onLocation" class="my-3 chat-room text-primary">
+                        <span role="button" (click)="createChatRoom()">
+                            Maak chatruimte
+                        </span>
+                    </div>
                     <hr>
                     <button type="button" class="btn btn-primary btn-sm" (click)="submitAgendaForm()">
                         <i class="fas fa-save"></i>&nbsp; {{ appointmentForm.id ? 'Bewerk afspraak' : 'Maak afspraak' }}

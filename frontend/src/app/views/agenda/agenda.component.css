@@ -40,3 +40,7 @@
 .legend .item.at-home:before {
     background-color: #1e90ff;
 }
+
+.chat-room:hover {
+    text-decoration: underline;
+}
