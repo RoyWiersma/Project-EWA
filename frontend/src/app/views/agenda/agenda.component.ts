@@ -6,6 +6,8 @@ import {AgendaService} from '../../services/agenda.service';
 import {AgendaItem} from '../../models/AgendaItem';
 import {PatientService} from '../../services/patient.service';
 import {map} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 const colors: any = {
     red: {
@@ -44,7 +46,8 @@ export class AgendaComponent implements OnInit {
     appointmentForm = new AgendaItem();
     response: ValidationResponse;
 
-    constructor(private modal: NgbModal, private agendaService: AgendaService, public patientService: PatientService) {
+    constructor(private modal: NgbModal, private agendaService: AgendaService, public patientService: PatientService,
+                private httpClient: HttpClient, private router: Router) {
         this.response = new ValidationResponse();
     }
 
@@ -103,6 +106,16 @@ export class AgendaComponent implements OnInit {
         this.addModalOpen = false;
         this.response = new ValidationResponse();
         this.appointmentForm = new AgendaItem();
+    }
+
+    createChatRoom(): void {
+        const patient = this.appointmentForm.patient;
+
+        this.httpClient.post('http://localhost:8085/chat', { patient }, {
+            headers: { authorization: localStorage.getItem('jwt') || null }
+        }).subscribe(() => {
+            this.router.navigate([`home/chat`]);
+        });
     }
 
     private fetchAgendaItems(): void {

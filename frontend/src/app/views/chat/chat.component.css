@@ -1,0 +1,116 @@
+.chat {
+    margin-left: -30px !important;
+    height: 100vh;
+}
+
+#chat-members {
+    /*border-style: solid;*/
+    max-height: 100%;
+    background-color: lightgrey;
+    padding-top: .75rem;
+}
+
+#chat-messages {
+    border-style: solid;
+}
+
+#chat-messages .row {
+    max-height: calc(100vh - 6rem);
+    overflow: auto;
+}
+
+.message-panel {
+    background-color: lightgreen;
+    border-radius: 25px;
+    margin: 0 0 0 0;
+}
+
+.message-texts {
+    max-height: 1080px;
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.message-texts.container-right {
+    border-color: #ccc;
+    background-color: #ddd;
+}
+
+.message-texts .detail {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.message-texts .detail p {
+    width: 30rem;
+}
+
+.message-texts .detail .time-right {
+    width: 6rem;
+}
+
+.patient-alert {
+    margin-top: 50px;
+}
+
+/* Chat containers */
+.container {
+    padding: 10px;
+    margin: 10px 10px 10px;
+    width: 40rem;
+}
+
+.container-left {
+    margin-left: 1rem;
+    margin-right: auto;
+}
+
+.container-right {
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+/* Clear floats */
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+
+
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+    color: #999;
+}
+
+.message-panel .input-group {
+    max-width: 90%;
+    max-height: 60%;
+    margin: 2%;
+
+}
+
+.message-time {
+    margin: 2% 2% 2% 50%;
+}
+
+.card-body {
+    padding: .5rem 1.25rem !important;
+}
+
+.card-text {
+    margin-left: 49%;
+    padding-right: .75rem;
+    font-weight: normal;
+}

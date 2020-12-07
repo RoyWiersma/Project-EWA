@@ -10,7 +10,6 @@ import {FormsModule} from '@angular/forms';
 import {HomeComponent} from './views/home/home.component';
 import {RouterModule} from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
-import { AdminComponent } from './views/admin/admin.component';
 
 @NgModule({
     imports: [
@@ -26,7 +25,7 @@ import { AdminComponent } from './views/admin/admin.component';
         AppComponent,
         MainLayoutComponent,
         HomeComponent,
-        AdminComponent,
+
     ],
     providers: [],
     bootstrap: [AppComponent]
