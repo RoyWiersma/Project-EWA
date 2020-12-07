@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="row message-panel">
+        <div *ngIf="chatId" class="row message-panel">
             <input class="input-group form-control" [(ngModel)]="newMessage.text" name="input" placeholder="Typ een bericht">
             <button type="button" (click)="sendMessage()" class="btn fas fa-paper-plane"></button>
         </div>
