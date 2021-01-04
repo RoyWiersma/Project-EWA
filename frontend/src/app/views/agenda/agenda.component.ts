@@ -51,7 +51,7 @@ export class AgendaComponent implements OnInit {
     ngOnInit(): void {
         this.fetchAgendaItems();
     }
-
+    
     submitAgendaForm(): void {
         this.agendaService.saveAgendaItem(this.appointmentForm)
             .subscribe(resp => {
