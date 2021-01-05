@@ -35,7 +35,7 @@ public class ChatController {
     }
 
     @GetMapping
-    @JsonView(UserView.ChatView.class)
+    @JsonView(UserView.DetailView.class)
     public List<Chat> getChats() {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findUserByEmail(email)
@@ -50,7 +50,7 @@ public class ChatController {
     }
 
     @GetMapping("/{id}")
-    @JsonView(UserView.ChatView.class)
+    @JsonView(UserView.DetailView.class)
     public List<Message> getChatById(@PathVariable String id) {
         Chat chat = chatRepository.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(String.format("Chat met het id '%s bestaat niet", id)));
@@ -84,7 +84,7 @@ public class ChatController {
     }
 
     @PostMapping("/{id}/message")
-    @JsonView(UserView.ChatView.class)
+    @JsonView(UserView.DetailView.class)
     public ResponseEntity<Map<String, Object>> postMessage(@RequestBody @Valid Message message, @PathVariable String id) {
         Map<String, Object> response = new HashMap<>();
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

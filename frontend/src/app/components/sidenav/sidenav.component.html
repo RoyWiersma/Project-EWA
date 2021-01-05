@@ -15,8 +15,8 @@
                 Dashboard
             </a>
         </div>
-        <div class="nav-link">
-            <a>
+        <div class="nav-link" *ngIf="loggedInGp">
+            <a routerLink="patients">
                 <i class="fas fa-address-book mr-4"></i>
                 Mijn patienten
             </a>

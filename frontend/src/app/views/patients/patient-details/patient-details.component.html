@@ -1,0 +1,151 @@
+<div class="card my-3">
+    <div class="position-relative d-flex justify-content-center w-100">
+        <div
+            *ngIf="response.message !== null"
+            class="alert alert-dismissible position-absolute"
+            [class.alert-success]="response.success"
+            [class.alert-danger]="!response.success"
+        >
+            {{ response.message }}
+            <button type="button" class="close" (click)="response.message = null">
+                <span>&times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <ng-container *ngTemplateOutlet="(!patient && !response.message) ? loading : patientDetails"></ng-container>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="h-100 d-flex justify-content-center align-items-center">
+        <i class="fas fa-spin fa-spinner fa-5x"></i><br /><br />
+        Patient laden...
+    </div>
+</ng-template>
+
+<ng-template #patientDetails>
+    <div class="d-flex align-items-center mb-2">
+        <h3 class="card-title">{{ patient.firstName }} {{ patient.middleName }} {{ patient.lastName }}</h3>
+    </div>
+    <h5 class="font-weight-bold mb-1">Algemene gegevens</h5>
+    <hr class="mb-4 mt-0">
+    <form class="mb-2">
+        <div class="row mb-3">
+            <div class="col-2 d-flex align-items-center">
+                <p class="font-weight-bold m-0">Naam</p>
+            </div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Voornaam" name="patient-firstname" [(ngModel)]="editedPatient.firstName">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Achternaam" name="patient-lastName" [(ngModel)]="editedPatient.lastName">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Tussenvoegsel" name="patient-middleName" [(ngModel)]="editedPatient.middleName">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2 d-flex align-items-center">
+                <p class="font-weight-bold m-0">E-mail</p>
+            </div>
+            <div class="col-7">
+                <input type="email" class="form-control" placeholder="E-mail" name="patient-email" [(ngModel)]="editedPatient.email">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2 d-flex align-items-center">
+                <p class="font-weight-bold m-0">Telefoonnummer</p>
+            </div>
+            <div class="col-4">
+                <input type="tel" class="form-control" placeholder="Telefoonnummer" name="patient-phonenumber" [(ngModel)]="editedPatient.phoneNumber">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2 d-flex align-items-center">
+                <p class="font-weight-bold m-0">Mobiele nummber</p>
+            </div>
+            <div class="col-4">
+                <input type="tel" class="form-control" placeholder="Mobiele nummber" name="patient-mobilenumber" [(ngModel)]="editedPatient.mobileNumber">
+            </div>
+        </div>
+        <div class="mt-4 d-flex justify-content-end">
+            <button (click)="updatePatient()" id="submit-edit-profile" type="button" class="btn btn-success" [disabled]="!isEdited(patient, editedPatient)">
+                <i class="fas fa-save mr-1"></i> Opslaan
+            </button>
+        </div>
+    </form>
+    <h5 class="font-weight-bold mb-1">Dossier</h5>
+    <hr class="mb-4 mt-0">
+    <div class="dossier-table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Beschrijving</th>
+                    <th>Soort</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of dossier">
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.type }} </td>
+                    <td>
+                        <p>
+                            <a class="text-info mr-3" data-id="{{ item.id }}" (click)="openDetailModel(item.id)">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a role="button" class="text-danger" (click)="deleteDossierItem(item.id)">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-success" (click)="addDossierMediaItem()">
+                <i class="fas fa-plus mr-1"></i> Item toevoegen
+            </button>
+        </div>
+    </div>
+
+    <div class="modal fade" [class.show]="dossierModalOpen" [class.is-active]="dossierModalOpen">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail</h5>
+                    <button type="button" class="close" (click)="dossierModalOpen = !dossierModalOpen">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" *ngIf="dossierData">
+                    <form>
+                        <div class="mb-3">
+                            <label for="dossier-description">Beschrijving</label>
+                            <textarea class="form-control" rows="3" name="dossier-description" id="dossier-description" [(ngModel)]="dossierData.description">
+                            </textarea>
+                        </div>
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="dossier-media">{{ !dossierData.image.name ? 'Selecteer afbeelding' : dossierData.image.name }}</label>
+                            <input type="file" accept="image/*" id="dossier-media" (change)="fileInputChange($event)" class="custom-file-input">
+                        </div>
+                        <div class="mt-3" *ngIf="dossierData.image">
+                            <p class="mb-0">Geselecteerde afbeelding:</p>
+                            <img src="{{ dossierData.image }}" alt="{{ dossierData.description }}">
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-success" (click)="saveMediaItem()" [disabled]="dossierData.id">
+                                <i class="fas fa-save mr-1"></i> Opslaan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

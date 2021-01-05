@@ -1,6 +1,5 @@
 package nl.infosupport2.zonneveld.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import nl.infosupport2.zonneveld.views.UserView;
@@ -21,19 +20,24 @@ public class GP extends User {
     @JsonView(UserView.PublicView.class)
     private boolean isAdmin = false;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "doctor")
     private List<Appointment> appointments;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "doctor")
+    private List<Patient> patients;
 
     @JsonIgnore
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.REMOVE)
     private List<Chat> chats;
 
-    public GP(String speciality, boolean isAdmin, List<Appointment> appointments, List<Chat> chats) {
+    public GP(String firstName, String lastName, String middleName, String email, String phoneNumber,
+              String mobileNumber, GPC gpc, String password, String speciality, boolean isAdmin
+    ) {
+        super(firstName, lastName, middleName, email, phoneNumber, mobileNumber, gpc, password);
         this.speciality = speciality;
         this.isAdmin = isAdmin;
-        this.appointments = appointments;
-        this.chats = chats;
     }
 
     public GP() { }
@@ -68,5 +72,13 @@ public class GP extends User {
 
     public void addChat(Chat chat) {
         chats.add(chat);
+    }
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void addPatient(Patient patient) {
+        patients.add(patient);
     }
 }
