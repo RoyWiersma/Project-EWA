@@ -16,7 +16,7 @@ public class DashboardController {
     private UserRepository userRepository;
     private AppointmentRepository appointmentRepository;
 
-    @GetMapping("")
+    @GetMapping
     public Iterable<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
     }
