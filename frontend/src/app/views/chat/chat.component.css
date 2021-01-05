@@ -1,13 +1,16 @@
+.card {
+    margin-top: 1rem;
+}
 .chat {
-    margin-left: -30px !important;
     height: 100vh;
 }
 
 #chat-members {
+    margin-left: -.5rem;
+    margin-right: .5rem;
     /*border-style: solid;*/
     max-height: 100%;
-    background-color: lightgrey;
-    padding-top: .75rem;
+    /*background-color: lightgrey;*/
 }
 
 #chat-messages {
@@ -106,7 +109,7 @@
 }
 
 .card-body {
-    padding: .5rem 1.25rem !important;
+    padding: 1.5rem 1.25rem !important;
 }
 
 .card-text {
