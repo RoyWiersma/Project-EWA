@@ -3,7 +3,8 @@ a {
 }
 
 aside {
-    background: #e0f7fa;
+    background: cornflowerblue;
+    opacity: 0.9;
     height: 100vh;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .4);
     position: sticky;
@@ -30,4 +31,7 @@ aside {
     position: absolute;
     margin: 0 auto;
     bottom: 0;
+}
+.nav-link {
+    cursor: pointer;
 }
