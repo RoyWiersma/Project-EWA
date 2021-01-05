@@ -15,6 +15,7 @@
 
 #chat-messages {
     border-style: solid;
+    border-radius: 2%;
 }
 
 #chat-messages .row {
@@ -23,9 +24,10 @@
 }
 
 .message-panel {
-    background-color: lightgreen;
+    background-color: #99ccff;
     border-radius: 25px;
     margin: 0 0 0 0;
+    opacity: .9;
 }
 
 .message-texts {

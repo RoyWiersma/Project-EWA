@@ -1,5 +1,5 @@
 #navbar {
-    background-color: cornflowerblue;
+    background-color: #99ccff;
     opacity: 0.9;
 }
 
@@ -12,7 +12,7 @@
     font-max-size: xx-large;
     font-style: normal;
     font-weight: bold;
-    color: white;
+    color: black;
 }
 
 #container-top {
@@ -157,8 +157,8 @@ section {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: cornflowerblue;
-    color: white;
+    background-color: #99ccff;
+    color: black;
     text-align: center;
     height: 50px;
     font-size: x-large;
