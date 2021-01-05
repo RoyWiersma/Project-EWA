@@ -192,10 +192,10 @@
                         </label>
                     </div>
                     <hr>
-                    <button type="button" class="btn btn-primary btn-sm" (click)="submitAgendaForm()">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="submitAgendaForm()" id = "bewerkButton">
                         <i class="fas fa-save"></i>&nbsp; {{ appointmentForm.id ? 'Bewerk afspraak' : 'Maak afspraak' }}
                     </button>
-                    <button *ngIf="appointmentForm.id" (click)="deleteEvent()" class="btn float-right btn-outline-danger btn-sm ml-1">
+                    <button *ngIf="appointmentForm.id" (click)="deleteEvent()" class="btn float-right btn-outline-danger btn-sm ml-1" id = "verwijderButton">
                         <i class="fas fa-trash"></i>&nbsp; Verwijderen
                     </button>
                 </form>

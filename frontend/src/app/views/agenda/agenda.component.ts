@@ -5,7 +5,10 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AgendaService} from '../../services/agenda.service';
 import {AgendaItem} from '../../models/AgendaItem';
 import {PatientService} from '../../services/patient.service';
+import {LoginService} from '../../services/login.service';
 import {map} from 'rxjs/operators';
+import {GP} from '../../models/GP';
+
 
 const colors: any = {
     red: {
@@ -44,14 +47,17 @@ export class AgendaComponent implements OnInit {
     appointmentForm = new AgendaItem();
     response: ValidationResponse;
 
-    constructor(private modal: NgbModal, private agendaService: AgendaService, public patientService: PatientService) {
+
+    constructor(private modal: NgbModal, private agendaService: AgendaService,
+                public patientService: PatientService, private loginService: LoginService) {
+
         this.response = new ValidationResponse();
     }
 
     ngOnInit(): void {
         this.fetchAgendaItems();
     }
-    
+
     submitAgendaForm(): void {
         this.agendaService.saveAgendaItem(this.appointmentForm)
             .subscribe(resp => {
@@ -73,8 +79,10 @@ export class AgendaComponent implements OnInit {
     }
 
     openModel(date: Date): void {
+    if (this.loginService.getLoggedInUser instanceof GP){
         this.addModalOpen = !this.addModalOpen;
         this.appointmentForm.start = date;
+        }
     }
 
     deleteEvent(): void {
