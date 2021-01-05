@@ -18,30 +18,31 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
+    @JsonView(UserView.DetailView.class)
     private Integer id;
 
     @Column(nullable = false, length = 100)
-    @JsonView(UserView.class)
+    @JsonView(UserView.PublicView.class)
     private String firstName;
 
     @Column(nullable = false, length = 200)
-    @JsonView(UserView.class)
+    @JsonView(UserView.PublicView.class)
     private String lastName;
 
     @Column(length = 100)
-    @JsonView(UserView.class)
+    @JsonView(UserView.PublicView.class)
     private String middleName;
 
-    @Column(unique = true, length = 320)
-    @JsonView(UserView.class)
+    @Column(unique = true, nullable = false, length = 320)
+    @JsonView(UserView.PublicView.class)
     private String email;
 
     @Column(unique = true, length = 20)
-    @JsonView(UserView.class)
+    @JsonView(UserView.PublicView.class)
     private String phoneNumber;
 
     @Column(unique = true, length = 20)
-    @JsonView(UserView.class)
+    @JsonView(UserView.PublicView.class)
     private String mobileNumber;
 
     @ManyToOne(optional = false)
@@ -50,8 +51,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    public User(Integer id, String firstName, String lastName, String middleName, String email, String phoneNumber, String mobileNumber, GPC gpc, String password) {
-        this.id = id;
+    public User(String firstName, String lastName, String middleName, String email, String phoneNumber, String mobileNumber, GPC gpc, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;

@@ -9,24 +9,16 @@ import {Observable} from 'rxjs';
 export class PatientService {
 
     private API_URL = 'http://localhost:8085/patient';
-    private patients: Patient[];
 
     constructor(private http: HttpClient) {
-        this.patients = [];
-        this.getAllPatients().subscribe(items => {
-            items.forEach(item => {
-                this.patients.push(item);
-            });
-        });
     }
 
-    public findAll(): Patient[] {
-        return this.patients;
-    }
-
-    private getAllPatients(): Observable<any> {
-        return this.http.get(this.API_URL, {
-            headers: { authorization: localStorage.getItem('jwt') || null }
+    public updatePatient(patient: Patient, id: number): Observable<any> {
+        return this.http.put(`${this.API_URL}/${id}`, JSON.stringify(patient), {
+            headers: {
+                authorization: localStorage.getItem('jwt') || null,
+                'content-type': 'application/json'
+            }
         });
     }
 }

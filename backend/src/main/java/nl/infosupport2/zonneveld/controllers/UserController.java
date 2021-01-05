@@ -29,13 +29,13 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("")
+    @GetMapping
     public Iterable<User> getAllUsers() {
         return repository.findAll();
     }
 
     @GetMapping("/email")
-    @JsonView(UserView.class)
+    @JsonView(UserView.PublicView.class)
     public Map<String, Object> getUserByEmail(@RequestParam String email) {
         Map<String, Object> response = new HashMap<>();
         User user = repository.findUserByEmail(email)
@@ -49,6 +49,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @JsonView(UserView.PublicView.class)
     public User getUserById(@PathVariable int id) {
         return repository.findById(id)
             .orElseThrow(() -> new ItemNotFoundException(String.format("De gebruiker met id '%d' bestaat niet", id)));
@@ -56,18 +57,6 @@ public class UserController {
 
     @PostMapping("/register/gp")
     public ResponseEntity<Map<String, Object>> registerUser(@RequestBody GP user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        repository.save(user);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("message", "Uw account is aangemaakt");
-
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
-
-    @PostMapping("/register/patient")
-    public ResponseEntity<Map<String, Object>> registerUser(@RequestBody Patient user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         repository.save(user);
 

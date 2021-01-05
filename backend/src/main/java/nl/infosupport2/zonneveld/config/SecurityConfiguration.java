@@ -1,4 +1,4 @@
-package nl.infosupport2.zonneveld;
+package nl.infosupport2.zonneveld.config;
 
 import nl.infosupport2.zonneveld.filters.CustomAuthenticationFilter;
 import nl.infosupport2.zonneveld.filters.CustomAuthorizationFilter;
@@ -28,6 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers(HttpMethod.POST, "/user/register/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/dossier/medical-media/download/**").permitAll()
             .anyRequest().authenticated().and()
             .addFilter(new CustomAuthenticationFilter(authenticationManager()))
             .addFilter(new CustomAuthorizationFilter(authenticationManager()))

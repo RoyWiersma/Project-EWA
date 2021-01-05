@@ -1,5 +1,9 @@
 package nl.infosupport2.zonneveld.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.infosupport2.zonneveld.views.UserView;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,35 +12,39 @@ public class MedicalMedia {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private Integer Id;
+    @JsonView(UserView.PublicView.class)
+    private Integer id;
 
     @Column(nullable = false, unique = true, length = 45)
-    private String Name;
+    @JsonView(UserView.DetailView.class)
+    private String media;
 
-    @Column(nullable = false, columnDefinition = "MEDIUMTEXT")
-    private String Data;
+    @Column(nullable = false)
+    @JsonView(UserView.PublicView.class)
+    private String description;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
+    @JsonBackReference
     private Dossier dossier;
 
-    public MedicalMedia(String name, String data, Dossier dossier) {
-        this.Name = name;
-        this.Data = data;
+    public MedicalMedia(String media, String description, Dossier dossier) {
+        this.media = media;
+        this.description = description;
         this.dossier = dossier;
     }
 
     public MedicalMedia() {}
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
-    public String getName() {
-        return Name;
+    public String getMedia() {
+        return media;
     }
 
-    public String getData() {
-        return Data;
+    public String getDescription() {
+        return description;
     }
 
     public Dossier getDossier() {
@@ -44,15 +52,15 @@ public class MedicalMedia {
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setMedia(String media) {
+        this.media = media;
     }
 
-    public void setData(String data) {
-        Data = data;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setDossier(Dossier dossier) {

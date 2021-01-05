@@ -8,7 +8,10 @@ import {PatientService} from '../../services/patient.service';
 import {LoginService} from '../../services/login.service';
 import {map} from 'rxjs/operators';
 import {GP} from '../../models/GP';
-
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {DoctorService} from '../../services/doctor.service';
+import {Patient} from '../../models/Patient';
 
 const colors: any = {
     red: {
@@ -40,6 +43,7 @@ export class AgendaComponent implements OnInit {
     viewDate: Date = new Date();
 
     refresh: Subject<any> = new Subject();
+    patients: Patient[];
     events$: Observable<CalendarEvent<{ item: AgendaItem }>[]>;
     activeDayIsOpen = true;
     addModalOpen = false;
@@ -47,15 +51,17 @@ export class AgendaComponent implements OnInit {
     appointmentForm = new AgendaItem();
     response: ValidationResponse;
 
-
     constructor(private modal: NgbModal, private agendaService: AgendaService,
-                public patientService: PatientService, private loginService: LoginService) {
+                public patientService: PatientService, private loginService: LoginService, public doctorService: DoctorService,
+                private httpClient: HttpClient, private router: Router) {
+
 
         this.response = new ValidationResponse();
     }
 
     ngOnInit(): void {
         this.fetchAgendaItems();
+
     }
 
     submitAgendaForm(): void {
@@ -113,7 +119,22 @@ export class AgendaComponent implements OnInit {
         this.appointmentForm = new AgendaItem();
     }
 
+    createChatRoom(): void {
+        const patient = this.appointmentForm.patient;
+
+        this.httpClient.post('http://localhost:8085/chat', { patient }, {
+            headers: { authorization: localStorage.getItem('jwt') || null }
+        }).subscribe(() => {
+            this.router.navigate([`home/chat`]);
+        });
+    }
+
     private fetchAgendaItems(): void {
+        this.doctorService.getPatients()
+            .subscribe(response => {
+                this.patients = response.patients;
+            }, error => console.log(error));
+
         this.events$ = this.agendaService.getAgendaItems()
             .pipe(
                 map((results: AgendaItem[]) => {

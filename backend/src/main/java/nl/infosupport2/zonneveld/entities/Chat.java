@@ -1,49 +1,68 @@
 package nl.infosupport2.zonneveld.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.infosupport2.zonneveld.views.UserView;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Chat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
-    private Integer Id;
+    @Column(nullable = false, unique = true)
+    @JsonView(UserView.PublicView.class)
+    private String id;
 
-    @OneToOne(optional = false)
-    private User user1;
+    @ManyToOne(optional = false)
+    @JsonView(UserView.PublicView.class)
+    private GP doctor;
 
-    @OneToOne(optional = false)
-    private User user2;
+    @ManyToOne(optional = false)
+    @JsonView(UserView.PublicView.class)
+    private Patient patient;
 
-    public Chat(User user1, User user2) {
-        this.user1 = user1;
-        this.user2 = user2;
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.REMOVE)
+    @JsonView(UserView.PublicView.class)
+    private List<Message> messages;
+
+    public Chat(String id, GP doctor, Patient patient) {
+        this.id = id;
+        this.doctor = doctor;
+        this.patient = patient;
     }
 
     public Chat() { }
 
-    public Integer getId() {
-        return Id;
+    public String getId() {
+        return id;
     }
 
-    public User getUser1() {
-        return user1;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public User getUser2() {
-        return user2;
+    public User getDoctor() {
+        return doctor;
     }
 
-    public void setId(Integer id) {
-        Id = id;
+    public void setDoctor(GP doctor) {
+        this.doctor = doctor;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public User getPatient() {
+        return patient;
     }
 
-    public void setUser2(User user2) {
-        this.user2 = user2;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void addMessage(Message message) {
+        messages.add(message);
     }
 }

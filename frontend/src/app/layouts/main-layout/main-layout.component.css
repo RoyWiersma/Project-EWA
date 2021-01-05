@@ -2,4 +2,8 @@
     background-color: #f4f6f8;
     width: 100%;
     height: auto;
+    margin-left: 0 !important;
+}
+.col-10 {
+    /*margin-right: 0 !important;*/
 }

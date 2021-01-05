@@ -9,8 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {HomeComponent} from './views/home/home.component';
 import {RouterModule} from '@angular/router';
-import { HttpClientModule} from '@angular/common/http';
-import { AdminComponent } from './views/admin/admin.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     imports: [
@@ -25,8 +24,7 @@ import { AdminComponent } from './views/admin/admin.component';
     declarations: [
         AppComponent,
         MainLayoutComponent,
-        HomeComponent,
-        AdminComponent,
+        HomeComponent
     ],
     providers: [],
     bootstrap: [AppComponent]
