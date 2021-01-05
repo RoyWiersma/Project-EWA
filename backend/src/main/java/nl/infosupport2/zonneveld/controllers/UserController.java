@@ -66,16 +66,4 @@ public class UserController {
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
-
-    @PostMapping("/register/patient")
-    public ResponseEntity<Map<String, Object>> registerUser(@RequestBody Patient user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        repository.save(user);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("message", "Uw account is aangemaakt");
-
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
-    }
 }

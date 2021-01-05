@@ -1,0 +1,28 @@
+.card {
+    min-height: calc(100vh - 2rem);
+}
+
+.dossier-table {
+    overflow-y: auto;
+    max-height: 350px;
+}
+
+.dossier-table thead th {
+    position: sticky;
+    top: 0;
+}
+
+th {
+    background: #fff;
+}
+
+.modal.is-active {
+    padding-right: 12px;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+img {
+    height: 300px;
+    width: 100%;
+}

@@ -173,7 +173,7 @@
                         <label for="patient">Patient:</label>
                         <select name="patient" id="patient" class="custom-select" [(ngModel)]="appointmentForm.patient">
                             <option
-                                *ngFor="let patient of patientService.findAll()"
+                                *ngFor="let patient of patients"
                                 [value]="patient.id"
                                 [selected]="appointmentForm.patient !== undefined"
                             >

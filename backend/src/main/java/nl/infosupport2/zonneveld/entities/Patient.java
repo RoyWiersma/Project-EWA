@@ -11,6 +11,9 @@ import java.util.List;
 @DiscriminatorColumn(name = "type")
 public class Patient extends User {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GP doctor;
+
     @JsonBackReference
     @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE)
     private List<Appointment> appointments;
@@ -19,11 +22,23 @@ public class Patient extends User {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE)
     private List<Chat> chats;
 
+    @OneToOne(mappedBy = "patient", cascade = CascadeType.REMOVE)
+    private Dossier dossier;
+
     public Patient() { }
 
-    public Patient(List<Appointment> appointments, List<Chat> chats) {
-        this.appointments = appointments;
-        this.chats = chats;
+    public Patient(String firstName, String lastName, String middleName, String email, String phoneNumber,
+                   String mobileNumber, GPC gpc, String password, GP doctor) {
+        super(firstName, lastName, middleName, email, phoneNumber, mobileNumber, gpc, password);
+        this.doctor = doctor;
+    }
+
+    public GP getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(GP doctor) {
+        this.doctor = doctor;
     }
 
     public List<Appointment> getAppointments() {
@@ -40,5 +55,13 @@ public class Patient extends User {
 
     public void addChat(Chat chat) {
         chats.add(chat);
+    }
+
+    public Dossier getDossier() {
+        return dossier;
+    }
+
+    public void setDossier(Dossier dossier) {
+        this.dossier = dossier;
     }
 }

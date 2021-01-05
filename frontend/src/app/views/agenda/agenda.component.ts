@@ -4,10 +4,11 @@ import {CalendarEvent, CalendarView} from 'angular-calendar';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AgendaService} from '../../services/agenda.service';
 import {AgendaItem} from '../../models/AgendaItem';
-import {PatientService} from '../../services/patient.service';
 import {map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {DoctorService} from '../../services/doctor.service';
+import {Patient} from '../../models/Patient';
 
 const colors: any = {
     red: {
@@ -39,6 +40,7 @@ export class AgendaComponent implements OnInit {
     viewDate: Date = new Date();
 
     refresh: Subject<any> = new Subject();
+    patients: Patient[];
     events$: Observable<CalendarEvent<{ item: AgendaItem }>[]>;
     activeDayIsOpen = true;
     addModalOpen = false;
@@ -46,13 +48,14 @@ export class AgendaComponent implements OnInit {
     appointmentForm = new AgendaItem();
     response: ValidationResponse;
 
-    constructor(private modal: NgbModal, private agendaService: AgendaService, public patientService: PatientService,
+    constructor(private modal: NgbModal, private agendaService: AgendaService, public doctorService: DoctorService,
                 private httpClient: HttpClient, private router: Router) {
         this.response = new ValidationResponse();
     }
 
     ngOnInit(): void {
         this.fetchAgendaItems();
+
     }
 
     submitAgendaForm(): void {
@@ -119,6 +122,11 @@ export class AgendaComponent implements OnInit {
     }
 
     private fetchAgendaItems(): void {
+        this.doctorService.getPatients()
+            .subscribe(response => {
+                this.patients = response.patients;
+            }, error => console.log(error));
+
         this.events$ = this.agendaService.getAgendaItems()
             .pipe(
                 map((results: AgendaItem[]) => {

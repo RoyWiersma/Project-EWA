@@ -18,7 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    @JsonView(UserView.ChatView.class)
+    @JsonView(UserView.DetailView.class)
     private Integer id;
 
     @Column(nullable = false, length = 100)
@@ -33,7 +33,7 @@ public class User {
     @JsonView(UserView.PublicView.class)
     private String middleName;
 
-    @Column(unique = true, length = 320)
+    @Column(unique = true, nullable = false, length = 320)
     @JsonView(UserView.PublicView.class)
     private String email;
 
@@ -51,8 +51,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    public User(Integer id, String firstName, String lastName, String middleName, String email, String phoneNumber, String mobileNumber, GPC gpc, String password) {
-        this.id = id;
+    public User(String firstName, String lastName, String middleName, String email, String phoneNumber, String mobileNumber, GPC gpc, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;

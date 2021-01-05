@@ -26,10 +26,10 @@ public class Chat {
     @JsonView(UserView.PublicView.class)
     private List<Message> messages;
 
-    public Chat(GP doctor, Patient patient, List<Message> messages) {
+    public Chat(String id, GP doctor, Patient patient) {
+        this.id = id;
         this.doctor = doctor;
         this.patient = patient;
-        this.messages = messages;
     }
 
     public Chat() { }
