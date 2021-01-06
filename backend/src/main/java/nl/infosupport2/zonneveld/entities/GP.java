@@ -81,4 +81,6 @@ public class GP extends User {
     public void addPatient(Patient patient) {
         patients.add(patient);
     }
+
+
 }

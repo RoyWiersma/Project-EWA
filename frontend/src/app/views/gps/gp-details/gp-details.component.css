@@ -1,0 +1,7 @@
+.card {
+    min-height: calc(100vh - 2rem);
+}
+
+th {
+    background: #fff;
+}

@@ -12,6 +12,8 @@ import {ChatComponent} from '../../views/chat/chat.component';
 import {AdminComponent} from '../../views/admin/admin.component';
 import { PatientsComponent } from '../../views/patients/patients.component';
 import {PatientDetailsComponent} from '../../views/patients/patient-details/patient-details.component';
+import {GpDetailsComponent} from '../../views/gps/gp-details/gp-details.component';
+import {GpsComponent} from '../../views/gps/gps.component';
 
 @NgModule({
     imports: [
@@ -32,7 +34,9 @@ import {PatientDetailsComponent} from '../../views/patients/patient-details/pati
         ChatComponent,
         AdminComponent,
         PatientsComponent,
-        PatientDetailsComponent
+        PatientDetailsComponent,
+        GpsComponent,
+        GpDetailsComponent
     ],
     providers: [
         { provide: OWL_DATE_TIME_LOCALE, useValue: 'nl' }

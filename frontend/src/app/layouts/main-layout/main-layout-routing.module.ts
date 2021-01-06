@@ -6,12 +6,21 @@ import {NgModule} from '@angular/core';
 import {AdminComponent} from '../../views/admin/admin.component';
 import {PatientsComponent} from '../../views/patients/patients.component';
 import {PatientDetailsComponent} from '../../views/patients/patient-details/patient-details.component';
+import {GpsComponent} from '../../views/gps/gps.component';
+import {GpDetailsComponent} from '../../views/gps/gp-details/gp-details.component';
 
 const routes: Routes = [
     { path: '', component: DashboardComponent },
     { path: 'agenda', component: AgendaComponent },
     { path: 'chat', component: ChatComponent},
     { path: 'admin', component: AdminComponent },
+    {
+        path: 'gps',
+        children: [
+            { path: '', component: GpsComponent },
+            { path: ':id', component: GpDetailsComponent }
+        ]
+    },
     {
         path: 'patients',
         children: [
