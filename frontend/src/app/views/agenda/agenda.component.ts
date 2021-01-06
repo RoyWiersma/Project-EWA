@@ -4,7 +4,10 @@ import {CalendarEvent, CalendarView} from 'angular-calendar';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AgendaService} from '../../services/agenda.service';
 import {AgendaItem} from '../../models/AgendaItem';
+import {PatientService} from '../../services/patient.service';
+import {LoginService} from '../../services/login.service';
 import {map} from 'rxjs/operators';
+import {GP} from '../../models/GP';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {DoctorService} from '../../services/doctor.service';
@@ -48,8 +51,11 @@ export class AgendaComponent implements OnInit {
     appointmentForm = new AgendaItem();
     response: ValidationResponse;
 
-    constructor(private modal: NgbModal, private agendaService: AgendaService, public doctorService: DoctorService,
+    constructor(private modal: NgbModal, private agendaService: AgendaService,
+                public patientService: PatientService, private loginService: LoginService, public doctorService: DoctorService,
                 private httpClient: HttpClient, private router: Router) {
+
+
         this.response = new ValidationResponse();
     }
 
@@ -79,8 +85,10 @@ export class AgendaComponent implements OnInit {
     }
 
     openModel(date: Date): void {
+    if (this.loginService.getLoggedInUser instanceof GP){
         this.addModalOpen = !this.addModalOpen;
         this.appointmentForm.start = date;
+        }
     }
 
     deleteEvent(): void {
