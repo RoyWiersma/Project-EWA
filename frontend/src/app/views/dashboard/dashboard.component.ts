@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {DashboardService} from '../../services/dashboard.service';
+import {GP} from "../../models/GP";
+import {LoginService} from "../../services/login.service";
 
 @Component({
     selector: 'app-dashboard',
@@ -8,14 +9,15 @@ import {DashboardService} from '../../services/dashboard.service';
 })
 
 export class DashboardComponent implements OnInit {
-    public firstname: string;
-    public datum: string;
+    public loggedInGp: GP;
 
-    constructor(private dashboardService: DashboardService) {
-
+    constructor(public loginService: LoginService) {
     }
 
     ngOnInit(): void {
+        if (this.loginService.getLoggedInUser instanceof GP){
+            this.loggedInGp = this.loginService.getLoggedInUser as GP;
+        }
     }
 
 }
