@@ -1,27 +1,24 @@
-# InfoSupport
+# Front-end site
+This repo contains all the code for the front-end site of our project. In this readme I will explain how to install and
+run the server.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.8.
+## Hardware Requirements
+* Minimum of 4 GB RAM
+* Minimum of 5 GB of diskspace
 
-## Development server
+## Software Requirements
+* Linux or Windows OS
+* NginX or Apache webserver
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## How to build and run the backend server
+1. First you need to install NPM or Yarn to install all the dependencies and make the build. To install them, follow 
+there official documentation [NPM installation](https://www.npmjs.com/get-npm),
+[Yarn installation](https://yarnpkg.com/getting-started)
+2. After you've installed one package manager, you can use the command `npm install` or `yarn install` to download all 
+the packages required for this project.
+3. If you've finished downloading the dependencies, you need to install the Angular CLI. You can install it by following
+the official documentation [Angular CLI installation](https://angular.io/guide/setup-local#install-the-angular-cli).
+4. To make sure the site works, you can run the unit test by typing the following command in the terminal `ng test`
+5. If all the test succeeded, you can make a build for either the production or development. Run `ng build` to build the
+project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+6. When the build is finished, you can upload the files that are generated in the `dist/` folder to the hosting.
