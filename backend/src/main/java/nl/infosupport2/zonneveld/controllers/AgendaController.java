@@ -1,5 +1,6 @@
 package nl.infosupport2.zonneveld.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import nl.infosupport2.zonneveld.entities.Appointment;
 import nl.infosupport2.zonneveld.entities.GP;
 import nl.infosupport2.zonneveld.entities.Patient;
@@ -7,6 +8,7 @@ import nl.infosupport2.zonneveld.entities.User;
 import nl.infosupport2.zonneveld.exceptions.ItemNotFoundException;
 import nl.infosupport2.zonneveld.repositories.AppointmentRepository;
 import nl.infosupport2.zonneveld.repositories.UserRepository;
+import nl.infosupport2.zonneveld.views.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,7 @@ public class AgendaController {
     }
 
     @GetMapping
+    @JsonView(UserView.DetailView.class)
     public List<Appointment> getAllAppointments() {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findUserByEmail(email)
@@ -46,12 +49,14 @@ public class AgendaController {
     }
 
     @GetMapping("/{id}")
-    public Appointment getAppointment(@PathVariable Integer id) {
+    @JsonView(UserView.DetailView.class)
+    public Appointment getAppointment(@PathVariable int id) {
         return appointmentRepository.findById(id)
             .orElseThrow(() -> new ItemNotFoundException(String.format("De afspraak met id '%d' bestaat niet", id)));
     }
 
     @PostMapping
+    @JsonView(UserView.DetailView.class)
     public ResponseEntity<Map<String, Object>> saveAppointment(@Valid @RequestBody Appointment appointment) {
         try {
             String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -67,8 +72,8 @@ public class AgendaController {
             response.put("success", true);
             response.put("message", "Afspraak is opgeslagen");
             response.put("appointment", appointmentRepository.save(appointment));
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
 
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -76,18 +81,14 @@ public class AgendaController {
     }
 
     @PutMapping("/{id}")
-    public Map<String, Object> updateAppointment(@PathVariable Integer id, @Valid @RequestBody Appointment editedAppointment) {
+    @JsonView(UserView.DetailView.class)
+    public Map<String, Object> updateAppointment(@PathVariable int id, @Valid @RequestBody Appointment editedAppointment) {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new ItemNotFoundException("Gebruiker niet gevonen"));
 
         Appointment newAppointment = appointmentRepository.findById(id)
             .map(appointment -> {
-                if (user instanceof Patient)
-                    appointment.setDoctor(editedAppointment.getDoctor());
-                if (user instanceof GP)
-                    appointment.setPatient(editedAppointment.getPatient());
-
                 appointment.setStart(editedAppointment.getStart());
                 appointment.setEnd(editedAppointment.getEnd());
                 appointment.setTitle(editedAppointment.getTitle());
@@ -107,7 +108,7 @@ public class AgendaController {
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Object> deleteAppointment(@PathVariable Integer id) {
+    public Map<String, Object> deleteAppointment(@PathVariable int id) {
         Appointment appointment = appointmentRepository.findById(id)
             .orElseThrow(() -> new ItemNotFoundException(String.format("De afspraak met id '%d' bestaat niet", id)));
 

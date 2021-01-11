@@ -1,9 +1,10 @@
 package nl.infosupport2.zonneveld.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.infosupport2.zonneveld.views.UserView;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -14,34 +15,40 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
+    @JsonView(UserView.PublicView.class)
     private Integer id;
 
     @Column(nullable = false)
     @NotNull(message = "Begin datum van de afspraak is verplicht")
-    @FutureOrPresent(message = "Afspraak moet vandaag of in de toekomst zijn")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonView(UserView.PublicView.class)
     private LocalDateTime start;
 
     @Column(nullable = false)
     @NotNull(message = "Eind datum van de afspraak is verplicht")
-    @FutureOrPresent(message = "Afspraak moet vandaag of in de toekomst zijn")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonView(UserView.PublicView.class)
     private LocalDateTime end;
 
     @ManyToOne(optional = false)
+    @JsonView(UserView.PublicView.class)
     private GP doctor;
 
     @ManyToOne(optional = false)
+    @JsonView(UserView.PublicView.class)
     private Patient patient;
 
     @Column(nullable = false, length = 45)
     @NotEmpty(message = "Titel voor afspraak is verplicht")
+    @JsonView(UserView.PublicView.class)
     private String title;
 
     @Column(columnDefinition = "TEXT")
+    @JsonView(UserView.DetailView.class)
     private String description;
 
     @Column(nullable = false)
+    @JsonView(UserView.PublicView.class)
     private boolean onLocation = false;
 
     public Appointment() {}
