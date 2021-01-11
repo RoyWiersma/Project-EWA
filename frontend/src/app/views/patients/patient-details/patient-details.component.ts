@@ -24,7 +24,8 @@ export class PatientDetailsComponent implements OnInit {
 
     response: ValidationResponse;
 
-    constructor(private activeRoute: ActivatedRoute, private dossierService: DossierService, private doctorService: DoctorService, private patientService: PatientService) {
+    constructor(private activeRoute: ActivatedRoute, private dossierService: DossierService,
+                private doctorService: DoctorService, private patientService: PatientService) {
         this.response = new ValidationResponse();
     }
 

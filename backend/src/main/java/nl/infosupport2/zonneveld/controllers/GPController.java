@@ -7,6 +7,7 @@ import nl.infosupport2.zonneveld.entities.MedicalMedia;
 import nl.infosupport2.zonneveld.entities.Patient;
 import nl.infosupport2.zonneveld.entities.User;
 import nl.infosupport2.zonneveld.exceptions.ItemNotFoundException;
+import nl.infosupport2.zonneveld.repositories.GPRepository;
 import nl.infosupport2.zonneveld.repositories.MedicalMediaRepository;
 import nl.infosupport2.zonneveld.repositories.PatientRepository;
 import nl.infosupport2.zonneveld.repositories.UserRepository;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/gp")
@@ -33,15 +35,17 @@ public class GPController {
     private final UserRepository userRepository;
     private final PatientRepository patientRepository;
     private final MedicalMediaRepository mediaRepository;
+    private final GPRepository gpRepository;
 
     @Value("${app.medical-media-directory}")
     private String directory;
 
     @Autowired
-    public GPController(UserRepository userRepository, PatientRepository patientRepository, MedicalMediaRepository mediaRepository) {
+    public GPController(UserRepository userRepository, PatientRepository patientRepository, MedicalMediaRepository mediaRepository, GPRepository gpRepository) {
         this.userRepository = userRepository;
         this.patientRepository = patientRepository;
         this.mediaRepository = mediaRepository;
+        this.gpRepository = gpRepository;
     }
 
     @GetMapping("/patients")
@@ -164,4 +168,21 @@ public class GPController {
             return null;
         }
     }
+
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> getGPs() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("gps", gpRepository.findAll());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getGP(@PathVariable int id) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("gp", gpRepository.findById(id));
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

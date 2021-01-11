@@ -10,6 +10,8 @@ import {FormsModule} from '@angular/forms';
 import {HomeComponent} from './views/home/home.component';
 import {RouterModule} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { GpsComponent } from './views/gps/gps.component';
+import { GpDetailsComponent } from './views/gps/gp-details/gp-details.component';
 
 @NgModule({
     imports: [

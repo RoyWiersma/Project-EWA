@@ -21,6 +21,11 @@
                 Mijn patienten
             </a>
         </div>
+        <div *ngIf="loggedInGp.isAdmin" class="nav-link">
+            <a routerLink="gps">
+                <i class="fas fa-user-lock mr-4"></i>Manage Doctors
+            </a>
+        </div>
         <div class="nav-link">
             <a routerLink="agenda">
                 <i class="fas fa-calendar mr-4"></i>
@@ -35,8 +40,7 @@
         </div>
         <div *ngIf="loggedInGp.isAdmin" class="nav-link">
             <a routerLink="../home/admin">
-                <i class="fas fa-user-lock mr-4"></i>
-                Admin
+                <i class="fas fa-user-lock mr-4"></i>Admin
             </a>
         </div>
         <div class="nav-link">
