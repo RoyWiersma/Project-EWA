@@ -43,14 +43,14 @@ export class AgendaService {
     }
 
     private putRequest(data: AgendaItem): Observable<any> {
-        const { id, title, description, patient, start, end, onLocation} = data;
+        const { id, title, description, start, end, onLocation} = data;
         const headers = new HttpHeaders();
         headers.set('Authorization', localStorage.getItem('jwt') || null);
         headers.set('content-type', 'application/json');
 
         return this.httpClient.put(
             `${this.API_URL}/${id}`,
-            JSON.stringify({title, description, patient: {id: patient}, start, end, onLocation}),
+            JSON.stringify({title, description, start, end, onLocation}),
             {
                 headers: {
                     authorization: localStorage.getItem('jwt') || null,

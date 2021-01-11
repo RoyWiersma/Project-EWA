@@ -74,13 +74,14 @@ export class AgendaComponent implements OnInit {
                 this.fetchAgendaItems();
             }, error => {
                 this.response.success = false;
-                this.response.message = error.error.message || '';
+                this.response.message = error.error.message || 'Er is een fout onstaan tijdens het opslaan';
                 this.response.errors = error.error.errors || {};
             });
     }
 
     handleOnEventClick(event: CalendarEvent): void {
         Object.keys(event).forEach(key => this.appointmentForm[key] = event[key]);
+        console.log(this.appointmentForm);
         this.addModalOpen = true;
     }
 

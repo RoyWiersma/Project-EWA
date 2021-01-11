@@ -169,7 +169,7 @@
                             <owl-date-time #end></owl-date-time>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="!appointmentForm.id">
                         <label for="patient">Patient:</label>
                         <select name="patient" id="patient" class="custom-select" [(ngModel)]="appointmentForm.patient">
                             <option
