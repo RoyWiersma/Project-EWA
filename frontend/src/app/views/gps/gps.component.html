@@ -1,0 +1,121 @@
+<div class="card my-3">
+    <div class="position-relative d-flex justify-content-center w-100">
+        <div
+            *ngIf="response.message !== null"
+            class="alert alert-dismissible position-absolute"
+            [class.alert-success]="response.success"
+            [class.alert-danger]="!response.success"
+        >
+            {{ response.message }}
+            <button type="button" class="close" (click)="response.message = null">
+                <span>&times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="card-title text-center">Dokters</h3>
+            <button (click)="openModal()" class="btn btn-success h-50 btn-sm">
+                <i class="fas fa-plus mr-1"></i> GP toevoegen
+            </button>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Naam</th>
+                <th>E-mail</th>
+                <th>Telefoonnummer</th>
+                <th>Mobielnummer</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let gp of gps.slice(currentPage * ROWS_PER_PAGE, currentPage * ROWS_PER_PAGE + ROWS_PER_PAGE)">
+                <td>{{ gp.lastName }}, {{ gp.firstName }} {{ gp.middleName }}</td>
+                <td>{{ gp.email }}</td>
+                <td>{{ gp.phoneNumber }}</td>
+                <td>{{ gp.mobileNumber }}</td>
+                <td>
+                    <p>
+                        <a routerLink="{{ gp.id }}" class="text-info mr-3">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a role="button" (click)="deleteGP(gp.id)" class="text-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav *ngIf="maxPages > 1">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="currentPage <= 0">
+                    <button (click)="setPage(currentPage - 1)" class="page-link">
+                        Vorige
+                    </button>
+                </li>
+                <li class="page-item" [class.active]="page === currentPage" *ngFor="let page of toArray(maxPages)">
+                    <button (click)="setPage(page)" class="page-link">
+                        {{ page + 1 }}
+                    </button>
+                </li>
+                <li class="page-item" [class.disabled]="(currentPage + 1) >= maxPages">
+                    <button (click)="setPage(currentPage + 1)" class="page-link">
+                        Volgende
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="modal fade" [class.show]="addGPModalOpen" [class.is-active]="addGPModalOpen">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">GP toevoegen</h5>
+                <button type="button" class="close" (click)="closeModal()">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="gp-firstname" class="form-label">Voornaam</label>
+                            <input type="text" class="form-control" name="gp-firstname" id="gp-firstname" [(ngModel)]="newGP.firstName">
+                        </div>
+                        <div class="col">
+                            <label for="gp-lastname" class="form-label">Achternaam</label>
+                            <input type="text" class="form-control" name="gp-lastName" id="gp-lastname" [(ngModel)]="newGP.lastName">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gp-middleName" class="form-label">Tussenvoegsel</label>
+                        <input type="text" class="form-control" name="gp-middleName" id="gp-middleName" [(ngModel)]="newGP.middleName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="gp-email" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" name="gp-email" id="gp-email" [(ngModel)]="newGP.email">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="gp-mobilenumber" class="form-label">Mobielenummer</label>
+                            <input type="tel" class="form-control" name="gp-mobilenumber" id="gp-mobilenumber" [(ngModel)]="newGP.mobileNumber">
+                        </div>
+                        <div class="col">
+                            <label for="gp-phonenumber" class="form-label">Telefoonnummer</label>
+                            <input type="tel" class="form-control" name="gp-phonenumber" id="gp-phonenumber" [(ngModel)]="newGP.phoneNumber">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end align-items-center">
+                        <button (click)="addGP()" type="button" class="btn btn-success">
+                            <i class="fas fa-save mr-1"></i> Opslaan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

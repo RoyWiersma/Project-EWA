@@ -1,7 +1,6 @@
 package nl.infosupport2.zonneveld.controllers;
 import nl.infosupport2.zonneveld.entities.Appointment;
 import nl.infosupport2.zonneveld.repositories.AppointmentRepository;
-import nl.infosupport2.zonneveld.repositories.GPCRepository;
 import nl.infosupport2.zonneveld.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
