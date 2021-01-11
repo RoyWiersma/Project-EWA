@@ -1,5 +1,6 @@
 package nl.infosupport2.zonneveld.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import nl.infosupport2.zonneveld.views.UserView;
 
@@ -16,6 +17,7 @@ public class Dossier {
     private Integer Id;
 
     @OneToOne(optional = false)
+    @JsonBackReference
     private Patient patient;
 
     @ManyToMany
