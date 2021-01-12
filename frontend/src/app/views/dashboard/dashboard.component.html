@@ -4,10 +4,10 @@
     <div class="col">
         <div class="card bg-light h-100">
             <div class="card-body">
-                <h2 id="div-1-header"> Welkom bij zonneveld! </h2>
-                <h4> Welkom bij
-                    zonneveld, {{this.currentUser.firstName }} {{this.currentUser.middleName}} {{this.currentUser.lastName}} </h4>
-                <h4>Het is nu {{date | date: 'short'}}</h4>
+                <h2 id="div-1-header"> Welkom bij zonnevelt! </h2>
+                <h6> Welkom bij
+                    zonnevelt: {{this.currentUser.firstName }} {{this.currentUser.middleName}} {{this.currentUser.lastName}} <br><br>Het is nu {{date | date: 'fullDate'}}</h6>
+
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
                 <h2 id="div-2-header"> Afspraken: </h2>
                 <div *ngIf="isGP()">
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                        <table class="table table-borderless table-striped mb-0 table-responsive-md table-hover">
+                        <table class="table table-borderless  mb-0 table-responsive-md table-hover">
                             <thead>
                             <tr>
                                 <th>Patient</th>
@@ -46,7 +46,7 @@
                 <div *ngIf="isPatient()">
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
                         <table id="dtDynamicVerticalScrollExample2"
-                               class="table table-borderless table-striped mb-0 table-responsive-md table-hover">
+                               class="table table-borderless mb-0 table-responsive-md table-hover">
                             <thead>
                             <tr>
                                 <th>op Locatie</th>
@@ -79,7 +79,7 @@
             <div class="card-body">
                 <div *ngIf="isGP()">
                     <h2 id="div-3-header" class="top-text"> Uw Patiënten: </h2>
-                    <table style="width:100%" class="table  table-borderless table-striped mb-0 table-hover">
+                    <table style="width:100%" class="table  table-borderless mb-0 table-hover">
                         <thead>
                         <tr>
                             <th>Patient</th>
@@ -168,7 +168,7 @@
 
         <div *ngIf="isPatient()">
             <h2 class="top-text"> Uw Dokter: </h2>
-            <table style="width:100%" class="table  table-borderless table-striped mb-0 table-hover">
+            <table style="width:100%" class="table  table-borderless mb-0 table-hover">
                 <tbody>
                 <tr *ngFor="let doc of doctor">
                     <td>{{doc[1] + " " + (doc[2] === null ? '' : (doc[2] === '' ? '' : (doc[2] + ' '))) + doc[3]}}</td>
@@ -180,12 +180,12 @@
     <div class="col">
         <div class="card bg-light h-100">
             <div class="card-body" *ngFor="let chat of chats.slice(0, 1)">
-                <h4 *ngIf="isGP()">Uw laatste chat was
-                    met: {{chat.patient.firstName}} {{chat.patient.middleName}} {{chat.patient.lastName}}</h4>
-                <h4 *ngIf="isPatient()">Uw laatste chat was
-                    met: {{chat.doctor.firstName}} {{chat.doctor.middleName}} {{chat.doctor.lastName}}</h4>
-                <button class="btn" (click)="redirectToChat()">Ga naar</button>
+                <h2 class="top-text" *ngIf="isGP()">Uw laatste chat was
+                    met: <h6>{{chat.patient.firstName}} {{chat.patient.middleName}} {{chat.patient.lastName}}</h6></h2>
+                <h2 class="top-text" *ngIf="isPatient()">Uw laatste chat was
+                    met: <h6>{{chat.doctor.firstName}} {{chat.doctor.middleName}} {{chat.doctor.lastName}}</h6></h2>
             </div>
+            <button class="btn btn-primary" (click)="redirectToChat()">Ga naar chat</button>
         </div>
 
     </div>
