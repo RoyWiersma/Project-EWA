@@ -1,9 +1,10 @@
 package nl.infosupport2.zonneveld.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import nl.infosupport2.zonneveld.entities.*;
+import nl.infosupport2.zonneveld.entities.GP;
+import nl.infosupport2.zonneveld.entities.MedicalMedia;
+import nl.infosupport2.zonneveld.entities.User;
 import nl.infosupport2.zonneveld.exceptions.ItemNotFoundException;
-import nl.infosupport2.zonneveld.repositories.DossierRepository;
 import nl.infosupport2.zonneveld.repositories.MedicalMediaRepository;
 import nl.infosupport2.zonneveld.repositories.UserRepository;
 import nl.infosupport2.zonneveld.services.UploadService;
@@ -15,38 +16,27 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/dossier")
-public class Dossiercontroller {
+public class DossierController {
 
     private final UserRepository userRepository;
     private final MedicalMediaRepository medicalMediaRepository;
-    private final DossierRepository dossierRepository;
-
 
     @Value("${app.medical-media-directory}")
     private String uploadDir;
 
     @Autowired
-    public Dossiercontroller(UserRepository userRepository, MedicalMediaRepository medicalMediaRepository,
-                             DossierRepository dossierRepository) {
+    public DossierController(UserRepository userRepository, MedicalMediaRepository medicalMediaRepository) {
         this.userRepository = userRepository;
         this.medicalMediaRepository = medicalMediaRepository;
-        this.dossierRepository = dossierRepository;
-
     }
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
 
     @GetMapping("/medical-media/{id}")
     @JsonView(UserView.DetailView.class)
@@ -122,46 +112,4 @@ public class Dossiercontroller {
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment;filename=\"%s\"", fileName))
                 .body(UploadService.loadFile(uploadDir, fileName));
     }
-
-    @JsonView(UserView.DetailView.class)
-    @GetMapping("/patient")
-    public Iterable<Dossier> getPatientDossier() throws UserPrincipalNotFoundException {
-        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new UserPrincipalNotFoundException(email));
-        return dossierRepository.getDossierByPatient((Patient) user);
-    }
-
-    @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody User password) throws UserPrincipalNotFoundException {
-        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findUserByEmail(email)
-                .orElseThrow(() -> new UserPrincipalNotFoundException(email));
-
-        if (user instanceof GP) {
-            GP gp = (GP) user;
-        } else if (user instanceof Patient) {
-            Patient patient = (Patient) user;
-            System.out.println(password.getPassword());
-
-            if (passwordEncoder.matches(password.getPassword(), patient.getPassword())) {
-                Map<String, Object> response = new HashMap<>();
-                response.put("success", true);
-
-                return response;
-            } else {
-                throw new ItemNotFoundException("Verkeerde inloggegevens");
-            }
-
-        } else
-            throw new UserPrincipalNotFoundException(email);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("failed", false);
-        response.put("message", "Er ging iets fout");
-
-        return response;
-
-    }
-
 }
