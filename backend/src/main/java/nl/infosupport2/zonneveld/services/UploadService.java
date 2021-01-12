@@ -1,6 +1,5 @@
 package nl.infosupport2.zonneveld.services;
 
-import nl.infosupport2.zonneveld.controllers.DossierController;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -55,7 +54,7 @@ public class UploadService {
         if (!resource.exists())
             throw new FileNotFoundException(String.format("File %s not found", fileName));
 
-        return MvcUriComponentsBuilder.fromMethodName(DossierController.class, "downloadImage", resource.getFilename())
+        return MvcUriComponentsBuilder.fromMethodName(Dossiercontroller.class, "downloadImage", resource.getFilename())
                 .build().toString();
     }
 
