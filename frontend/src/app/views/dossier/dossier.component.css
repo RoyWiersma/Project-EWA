@@ -1,0 +1,66 @@
+.modal-backdrop {
+    display: none !important;
+}
+
+.modal-backdrop.in {
+    opacity: 0 !important;
+    z-index: -1050 !important;
+}
+
+#modal-content {
+    background-color: #d1ecf1;
+}
+
+#countdownModalButton {
+    background: transparent;
+    border: none !important;
+    font-size: 0;
+}
+
+#modalButton {
+    margin: auto;
+}
+
+label {
+    text-align: left;
+}
+
+#enterButton {
+    background-color: #e0f7fa;
+    margin: 10px;
+}
+
+.container:last-child {
+    text-align: center;
+}
+
+/*#label {*/
+/*    vertical-align: sub*/
+/*}*/
+
+#backButton {
+    margin: 10px;
+    /*float: right;*/
+    background-color: #e0f7fa;
+}
+
+.modal {
+    backdrop-filter: blur(10px);
+}
+
+#hiddenValidator {
+    height: 50px;
+    max-height: 50px;
+}
+
+/*h4 {*/
+/*    width:100%;*/
+/*    text-align:center;*/
+/*    border-bottom: 1px solid #000;*/
+/*    line-height:0.1em;*/
+/*    margin:10px 0 20px;*/
+/*}*/
+/*span {*/
+/*    background:#e9ecef;*/
+/*    padding:0 10px;*/
+/*}*/

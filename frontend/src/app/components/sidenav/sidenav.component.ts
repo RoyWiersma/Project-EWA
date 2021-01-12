@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from '../../services/login.service';
 import {GP} from '../../models/GP';
+import {Patient} from '../../models/Patient';
+import {User} from '../../models/User';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,8 +10,10 @@ import {Router} from '@angular/router';
     templateUrl: './sidenav.component.html',
     styleUrls: ['./sidenav.component.css']
 })
-export class SidenavComponent implements OnInit{
+export class SidenavComponent implements OnInit {
     public loggedInGp: GP;
+    public loggedInPatient: Patient;
+    public currentUser: User;
 
     constructor(public loginService: LoginService, private router: Router) {
     }

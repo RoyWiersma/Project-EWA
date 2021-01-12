@@ -9,7 +9,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {HomeComponent} from './views/home/home.component';
 import {RouterModule} from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
+import {CountdownModule} from 'ngx-countdown';
 import { GpsComponent } from './views/gps/gps.component';
 import { GpDetailsComponent } from './views/gps/gp-details/gp-details.component';
 
@@ -21,7 +22,8 @@ import { GpDetailsComponent } from './views/gps/gp-details/gp-details.component'
         RouterModule,
         BrowserAnimationsModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        CountdownModule
     ],
     declarations: [
         AppComponent,

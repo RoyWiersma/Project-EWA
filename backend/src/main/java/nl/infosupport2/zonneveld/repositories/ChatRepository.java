@@ -15,4 +15,21 @@ public interface ChatRepository extends CrudRepository<Chat, String> {
 
     @Query("SELECT c FROM Chat c WHERE c.patient = ?1")
     List<Chat> findByPatient(Patient doctor);
+
+    //chat details for GP
+    @Query("SELECT c FROM Message AS m " +
+            "LEFT JOIN Chat AS c ON m.chat.id = c.id " +
+            "LEFT JOIN User AS u ON c.patient.id = u.id " +
+            "WHERE c.doctor = ?1 " +
+            "ORDER BY m.dateTime DESC")
+    List<Chat> findChatByGP(GP gp);
+
+    //chat details for Patient
+    @Query("SELECT c FROM Message AS m " +
+            "LEFT JOIN Chat AS c ON m.chat.id = c.id " +
+            "LEFT JOIN User AS u ON c.doctor.id = u.id " +
+            "WHERE c.patient = ?1 " +
+            "ORDER BY m.dateTime DESC")
+    List<Chat> findChatByPatient(Patient patient);
+
 }

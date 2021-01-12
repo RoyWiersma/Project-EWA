@@ -1,5 +1,4 @@
 package nl.infosupport2.zonneveld.controllers;
-
 import com.fasterxml.jackson.annotation.JsonView;
 import nl.infosupport2.zonneveld.entities.Appointment;
 import nl.infosupport2.zonneveld.entities.GP;
@@ -14,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/agenda")
-public class AgendaController {
+public abstract class AgendaController implements AppointmentRepository {
 
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;

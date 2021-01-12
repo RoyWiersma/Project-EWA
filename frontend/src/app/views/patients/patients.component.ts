@@ -30,6 +30,7 @@ export class PatientsComponent implements OnInit {
             .subscribe(response => {
                 this.patients = response.patients;
                 this.maxPages = Math.ceil(this.patients.length / this.ROWS_PER_PAGE);
+                console.log(this.patients);
             });
     }
 

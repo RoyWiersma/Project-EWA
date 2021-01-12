@@ -1,5 +1,6 @@
 import {RouterModule, Routes} from '@angular/router';
 import {DashboardComponent} from '../../views/dashboard/dashboard.component';
+import {DossierComponent} from '../../views/dossier/dossier.component';
 import {AgendaComponent} from '../../views/agenda/agenda.component';
 import {ChatComponent} from '../../views/chat/chat.component';
 import {NgModule} from '@angular/core';
@@ -12,6 +13,7 @@ import {GpDetailsComponent} from '../../views/gps/gp-details/gp-details.componen
 const routes: Routes = [
     { path: '', component: DashboardComponent },
     { path: 'agenda', component: AgendaComponent },
+    { path: 'dossier', component: DossierComponent },
     { path: 'chat', component: ChatComponent},
     { path: 'admin', component: AdminComponent },
     {
