@@ -5,6 +5,7 @@ import nl.infosupport2.zonneveld.entities.GP;
 import nl.infosupport2.zonneveld.entities.GPC;
 import nl.infosupport2.zonneveld.entities.Patient;
 import nl.infosupport2.zonneveld.repositories.ChatRepository;
+import nl.infosupport2.zonneveld.repositories.GPCRepository;
 import nl.infosupport2.zonneveld.repositories.GPRepository;
 import nl.infosupport2.zonneveld.repositories.PatientRepository;
 import org.junit.jupiter.api.AfterEach;
