@@ -21,7 +21,7 @@
                 Mijn patienten
             </a>
         </div>
-        <div *ngIf="loggedInGp.isAdmin" class="nav-link">
+        <div *ngIf="loggedInGp && loggedInGp.isAdmin" class="nav-link">
             <a routerLink="gps">
                 <i class="fas fa-user-lock mr-4"></i>Manage Doctors
             </a>
@@ -38,13 +38,13 @@
                 Chat
             </a>
         </div>
-        <div *ngIf="loggedInGp.isAdmin" class="nav-link">
+        <div *ngIf="loggedInGp && loggedInGp.isAdmin" class="nav-link">
             <a routerLink="../home/admin">
                 <i class="fas fa-user-lock mr-4"></i>Admin
             </a>
         </div>
         <div class="nav-link">
-            <a routerLink="/">
+            <a (click)="handleLogout()">
                 <i class="fas fa-sign-out-alt mr-4"></i>
                 Log uit
             </a>
