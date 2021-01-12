@@ -1,5 +1,9 @@
 import {User} from './User';
-
+export interface GP {
+    id: number;
+    firstName: string;
+    lastname: string;
+}
 export class GP extends User {
 
     isAdmin: boolean;
@@ -16,6 +20,4 @@ export class GP extends User {
         this.speciality = speciality;
         this.id = id;
     }
-
-
 }

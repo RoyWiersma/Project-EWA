@@ -1,0 +1,107 @@
+<div *ngIf="isPatient()"><h2>Mijn Dossier</h2></div>
+
+<div class="jumbotron" *ngIf="isPatient()">
+    <div class="container text-center">
+        <form role="form" class="login-form">
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Voornaam:</label>
+                <div class="col-sm-6">
+                    <input type="text" readonly class="form-control-plaintext"
+                           value="{{patientDossier.firstName}}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Middelnaam:</label>
+                <div class="col-sm-6">
+                    <input type="text" readonly class="form-control-plaintext"
+                           value="{{patientDossier.middleName}}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Achternaam:</label>
+                <div class="col-sm-6">
+                    <input type="text" readonly class="form-control-plaintext"
+                           value="{{patientDossier.lastName}}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Email:</label>
+                <div class="col-sm-6">
+                    <input type="text" readonly class="form-control-plaintext"
+                           value="{{patientDossier.email}}">
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="patientDossier.phoneNumber != null">
+                <label class="col-sm-6 col-form-label">Telefoonnummer: </label>
+                <div class="col-sm-6">
+                    <input type="text" readonly class="form-control-plaintext"
+                           value="{{patientDossier.phoneNumber}}" >
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="patientDossier.mobileNumber != null">
+                <label class="col-sm-6 col-form-label">Mobiele nummer: </label>
+                <div class="col-sm-6">
+                    <input type="text" readonly class="form-control-plaintext"
+                           value="{{patientDossier.mobileNumber}}" >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Dokter: </label>
+                <div class="col-sm-6">
+                    <input type="text" readonly class="form-control-plaintext"
+                           value="{{patientDossier['doctor'].firstName + ' '+
+                     (patientDossier['doctor'].middleName === null ? ' ' : (patientDossier['doctor'].middleName === ' ' ? ' ' :
+                    (patientDossier['doctor'].middleName + ' ')))
+                + patientDossier['doctor'].lastName}}">
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="countdownModal" class="modal fade" role="dialog">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#countdownModal"
+            id="countdownModalButton" data-backdrop="static"></button>
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" id="modal-content">
+            <div class="alert alert-info" disabled="true">
+                <strong><h3>Let op!</h3></strong>
+                <hr>
+                <h5>U bent al 4 minuten bezig, wegens privacy reden sturen wij u dit bericht. Klik op 'Verleng de tijd' om verder te
+                    gaan.</h5>
+                <h5> U heeft nog {{afkCounter}} seconden om op de knop te klikken voordat u wordt uitgelogd</h5>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="modalButton">Verleng de tijd!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loginModal" class="modal fade" role="dialog">
+    <button data-target="#loginModal" data-toggle="modal" id="loginModalButton" data-backdrop="static" hidden></button>
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" id="content">
+            <div class="container">
+                <label for="password" id="label">Voer wachtwoord opnieuw in</label>
+                <br>
+                <form role="form" class="login-form">
+                    <input type="password" id="password" name="password"
+                           #passwordValidation="ngModel"
+                           [(ngModel)]="password" required><br>
+                    <button class="btn" type="submit" id="enterButton" (click)="enterPassword()">Enter</button>
+                    <button class="btn" id="backButton" (click)="back()">Terug</button>
+                </form>
+                <div *ngIf="passwordValidation.invalid" id="passwordValidation"
+                     class="alert alert-danger">
+                        Wachtwoord vereist.
+                </div>
+                <div class="alert alert-danger" hidden id="hiddenValidator">
+                    <p id="wrongPassword"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

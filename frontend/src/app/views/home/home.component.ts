@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
     error = false;
 
     constructor(private router: Router, private loginService: LoginService) {
+
     }
 
     ngOnInit(): void {

@@ -10,6 +10,16 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "type")
 public class User {
 
+    public User(Integer id, String firstName, String lastName, String middleName, String email, String phoneNumber, String mobileNumber) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.mobileNumber = mobileNumber;
+    }
+
     public static class Type {
         public static final String GP = "gp";
         public static final String PATIENT = "patient";
