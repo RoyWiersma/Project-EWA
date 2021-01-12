@@ -1,6 +1,5 @@
 package nl.infosupport2.zonneveld.services;
 
-import nl.infosupport2.zonneveld.controllers.Dossiercontroller;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;

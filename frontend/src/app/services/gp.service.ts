@@ -35,6 +35,8 @@ export class GpService {
     }
 
     public updateGP(gp: GP, id: number): Observable<any> {
+        Object.keys(gp).forEach(key => gp[key] === '' ? gp[key] = null : gp[key]);
+
         return this.http.put(`${this.API_URL_GPS}/${id}`, JSON.stringify(gp), {
             headers: {
                 authorization: localStorage.getItem('jwt') || null,
