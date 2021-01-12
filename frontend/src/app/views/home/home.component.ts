@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
 
     email: string;
     password: string;
-    error = true;
+    error = false;
 
     constructor(private router: Router, private loginService: LoginService) {
     }
@@ -24,18 +24,26 @@ export class HomeComponent implements OnInit {
     submitLoginForm(): void {
         const { email, password } = this;
         this.loginService.postLoginForm(email, password)
-            .subscribe((response: HttpResponse<any>) => {
+            .subscribe(async (response: HttpResponse<any>) => {
                 if (response !== null) {
-                    this.error = true;
-                    localStorage.setItem('jwt', response.headers.get('authorization'));
-                    $('#exampleModalCenter').modal('hide');
-                    this.router.navigate(['home']);
+                    try {
+                        const token = response.headers.get('authorization');
+                        const userData = await this.loginService.getLoginData(token, email);
+
+                        sessionStorage.setItem('user', JSON.stringify(userData));
+                        localStorage.setItem('jwt', token);
+
+                        $('#exampleModalCenter').modal('hide');
+
+                        this.router.navigate(['home']);
+                    } catch (e) {
+                        this.error = true;
+                    }
                 } else {
-                    this.error = false;
+                    this.error = true;
                 }
             }, error => {
-                this.error = false;
-                console.log(error);
+                this.error = true;
             });
     }
 }
