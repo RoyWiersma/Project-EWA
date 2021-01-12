@@ -20,7 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/agenda")
-public abstract class AgendaController implements AppointmentRepository {
+public class AgendaController {
 
     private final AppointmentRepository appointmentRepository;
     private final UserRepository userRepository;
