@@ -25,7 +25,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/dossier")
-public class DossierController {
+public class Dossiercontroller {
 
     private final UserRepository userRepository;
     private final MedicalMediaRepository medicalMediaRepository;
@@ -36,7 +36,7 @@ public class DossierController {
     private String uploadDir;
 
     @Autowired
-    public DossierController(UserRepository userRepository, MedicalMediaRepository medicalMediaRepository,
+    public Dossiercontroller(UserRepository userRepository, MedicalMediaRepository medicalMediaRepository,
                              DossierRepository dossierRepository) {
         this.userRepository = userRepository;
         this.medicalMediaRepository = medicalMediaRepository;

@@ -21,6 +21,7 @@
 #chat-messages .row {
     max-height: calc(92vh - 6rem);
     overflow: auto;
+    margin-top: 1rem;
 }
 
 .message-panel {
