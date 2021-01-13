@@ -12,6 +12,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {DoctorService} from '../../services/doctor.service';
 import {Patient} from '../../models/Patient';
+import {environment} from '../../../environments/environment';
 
 const colors: any = {
     red: {
@@ -119,7 +120,7 @@ export class AgendaComponent implements OnInit {
     createChatRoom(): void {
         const patient = this.appointmentForm.patient;
 
-        this.httpClient.post('http://localhost:8085/chat', { patient }, {
+        this.httpClient.post(`${environment.apiUrl}/chat`, { patient }, {
             headers: { authorization: localStorage.getItem('jwt') || null }
         }).subscribe(() => {
             this.router.navigate([`home/chat`]);
