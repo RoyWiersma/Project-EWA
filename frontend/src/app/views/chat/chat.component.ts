@@ -32,7 +32,6 @@ export class ChatComponent implements OnInit {
         }).subscribe((chat: Chat[]) => {
             this.chats = chat;
         });
-        console.log(this.chats);
     }
 
     setChat(id: string): void {
@@ -52,6 +51,9 @@ export class ChatComponent implements OnInit {
             this.messages = messages.map(message => {
                 return { ...message, dateTime: format(new Date(message.dateTime), 'dd-MM-yyyy kk:mm:ss') };
             });
+
+            const chatElement = document.querySelector('#chat-messages .row');
+            chatElement.scrollTop = chatElement.scrollHeight;
         });
     }
 

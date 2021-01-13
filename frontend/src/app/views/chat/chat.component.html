@@ -14,8 +14,8 @@
                     </div>
                 </div>
             </div>
-            <h1 *ngIf="chats.length.valueOf() == 0">Sorry, u heeft nog geen chats</h1>
-            <div class="col-9" id="chat-messages" *ngIf="chats.length.valueOf() != 0">
+            <h1 *ngIf="chats && chats.length === 0">Sorry, u heeft nog geen chats</h1>
+            <div class="col-9" id="chat-messages" *ngIf="chats && chats.length !== 0">
                 <div class="row">
                     <div class="message-texts overflow-auto"
                          [class.container-right]="message.sender.email === loginService.getLoggedInUser.email"
