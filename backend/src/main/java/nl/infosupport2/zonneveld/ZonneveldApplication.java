@@ -20,7 +20,8 @@ public class ZonneveldApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-                    .allowedOrigins("https://infosupport-2-front-end.herokuapp.com");
+                    .allowedOrigins("https://infosupport-2-front-end.herokuapp.com", "http://localhost:8085",
+                            "http://localhost:4200");
             }
         };
     }
