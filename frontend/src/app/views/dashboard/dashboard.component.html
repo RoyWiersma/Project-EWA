@@ -24,7 +24,7 @@
                                 <th>Patient</th>
                                 <th>op Locatie</th>
                                 <th>Datum & tijd</th>
-                                <th>Notitie</th>
+                                <th>Titel</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -36,7 +36,7 @@
                                     <ng-template #onlineAppointment>Online</ng-template>
                                 </td>
                                 <td>{{ item.start | date:"dd-MM-yy hh:mm"}}</td>
-                                <td>{{ item.description }}</td>
+                                <td>{{ item.title }}</td>
                             </tr>
                             </tbody>
                         </table>

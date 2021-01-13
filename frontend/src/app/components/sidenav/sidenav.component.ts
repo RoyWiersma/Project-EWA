@@ -24,6 +24,9 @@ export class SidenavComponent implements OnInit {
         } else {
             this.loggedInGp = null;
         }
+        if (this.loginService.getLoggedInUser instanceof Patient) {
+            this.loggedInPatient = this.loginService.getLoggedInUser as Patient;
+        }
     }
 
     handleLogout(): void {
