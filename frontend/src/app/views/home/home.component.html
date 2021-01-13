@@ -1,0 +1,78 @@
+<nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+    <div class="container-fluid" id="container-nav">
+        <a class="navbar-brand" id="zonnevelt-text" href="#">Zonnevelt</a>
+    </div>
+</nav>
+<header>
+<div class="container-fluid" id="container-top">
+    <div class="container">
+        <div class="row">
+            <div class=" col-sm-12" id="div-second">
+                <div id="div-container">
+                    <h1 id="h1text">Een huisartsenpost maar dan digitaal.</h1>
+                    <h3 id="h3text">Ook benieuwd of klachten?</h3>
+                    <button type="button" class="btn btn-primary" (click)="error = false" data-toggle="modal" data-target="#exampleModalCenter" id="loginButton">
+                         Inloggen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</header>
+<div class="arrow">
+    <div class="arrow-top"></div>
+    <div class="arrow-bottom"></div>
+</div>
+<section id="section-mid">
+    <div class="row" id="div-row">
+        <div class=" col-sm-6" id="photo-div">
+            <div id="div3">
+                <img src="../../../assets/images/doctor.png" height="400" width="400" id="img-2"/>
+            </div>
+        </div>
+        <div class=" col-sm-6" id="div2">
+                <h3>
+                    <h1>Welkom bij Zonnevelt huisartspraktijk</h1>
+                    <h3>
+                        Wij geven u de beste zorg die er is als u het kan betalen. Geen nood daarvoor zijn zorgverzekeringen.
+                    </h3>
+                </h3>
+        </div>
+    </div>
+</section>
+<footer id="footer">Spoednummer bellen? 06 57389293</footer>
+
+<!-- Modal when button is triggered -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" >Inloggen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div  class="alert alert-danger" role="alert" *ngIf="error">
+                    E-mail of wachtwoord onjuist.
+                </div>
+                <form role="form" class="login-form">
+                    <div class="form-group">
+                        <label for="form-email">E-mailadres:</label>
+                        <input [(ngModel)]="email" type="email" name="form-email" placeholder="E-mailadres" class="form-username form-control" id="form-email"  title="Emailadres">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-password">Wachtwoord:</label>
+                        <input [(ngModel)]="password" type="password" name="form-password" placeholder="Wachtwoord" class="form-password form-control" id="form-password">
+                    </div>
+                    <hr>
+                    <h6><div class="form-text">Als je je E-mail en/of wachtwoord niet weet bel dan de helpdesk: 06 .......</div></h6>
+                    <hr>
+                    <button type="button" (click)="submitLoginForm()" class="btn btn-primary btn-sm" id="form-login">Inloggen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

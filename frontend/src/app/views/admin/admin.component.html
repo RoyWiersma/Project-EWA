@@ -1,0 +1,43 @@
+<div class="card" >
+    <div class="card-body">
+    <h1>Doktors</h1>
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Naam</th>
+        <th scope="col">E-mail</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let gp of allNoAdmin">
+        <td>{{gp.firstName}}</td>
+        <td>{{gp.email}}</td>
+        <td>
+            <button (click)="giveAdmin(gp)" type="button" class="btn btn-danger float-right">Maak Admin</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>Administrators</h1>
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Naam</th>
+        <th scope="col">E-mail</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let admin of allAdmin">
+        <td>{{admin.firstName}}</td>
+        <td>{{admin.email}}</td>
+        <td>
+            <button (click)="removeAdmin(admin)" type="button" class="btn btn-danger float-right">Ontneem Admin rechten</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+    </div>
+</div>

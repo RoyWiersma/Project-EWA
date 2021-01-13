@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-body">
+        <div class="chat d-flex w-100">
+            <div class="col-3 overflow-auto" id="chat-members">
+                <div *ngFor="let chat of chats" class="card mb-2" (click)="setChat(chat.id)" role="button"
+                     [class.border-dark]="chatId !== chat.id"
+                     [class.border-primary]="chatId === chat.id"
+                >
+                    <div class="card-header">
+                        <b *ngIf="isDoctor">{{ chat.patient.firstName }}
+                            , {{ chat.patient.lastName }} {{ chat.patient.middleName }}</b>
+                        <b *ngIf="!isDoctor">{{ chat.doctor.firstName }}
+                            , {{ chat.doctor.lastName }} {{ chat.doctor.middleName }}</b>
+                    </div>
+                </div>
+            </div>
+            <h1 *ngIf="chats && chats.length === 0">Sorry, u heeft nog geen chats</h1>
+            <div class="col-9" id="chat-messages" *ngIf="chats && chats.length !== 0">
+                <div class="row">
+                    <div class="message-texts overflow-auto"
+                         [class.container-right]="message.sender.email === loginService.getLoggedInUser.email"
+                         [class.container-left]="message.sender.email !== loginService.getLoggedInUser.email"
+                         *ngFor="let message of messages"
+                    >
+                        <div class="container detail">
+                            <p>{{ message.text }}</p>
+                            <span class="time-right">{{ message.dateTime }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="chatId" class="row message-panel">
+                    <input class="input-group form-control" [(ngModel)]="newMessage.text" name="input"
+                           placeholder="Typ een bericht">
+                    <button type="button" (click)="sendMessage()" class="btn fas fa-paper-plane"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

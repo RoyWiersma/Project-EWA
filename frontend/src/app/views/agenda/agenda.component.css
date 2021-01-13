@@ -1,0 +1,46 @@
+.card {
+    margin-top: 1rem;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+.modal {
+    display: none;
+    overflow: auto;
+}
+
+.modal.is-active {
+    padding-right: 12px;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.alert-success {
+    z-index: 1000;
+    width: 33.3333%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
+.legend .item:before {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: .25rem;
+    background-color: var(--gray);
+    content: '';
+    vertical-align: middle;
+}
+
+.legend .item.on-location:before {
+    background-color: #ad2121;
+}
+
+.legend .item.at-home:before {
+    background-color: #1e90ff;
+}
+
+.chat-room:hover {
+    text-decoration: underline;
+}

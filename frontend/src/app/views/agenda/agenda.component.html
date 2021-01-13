@@ -1,0 +1,211 @@
+<div class="card">
+    <div class="card-body">
+        <div class="position-relative w-100">
+            <div
+                *ngIf="response.message !== null && response.success"
+                 class="alert alert-success alert-dismissible position-absolute"
+            >
+                {{ response.message }}
+                <button type="button" class="close" (click)="response.message = null">
+                    <span>&times;</span>
+                </button>
+            </div>
+        </div>
+        <div class="agenda row text-center">
+            <div class="col-md-4">
+                <div class="btn-group">
+                    <div
+                        class="btn btn-primary"
+                        mwlCalendarPreviousView
+                        [view]="view"
+                        [(viewDate)]="viewDate"
+                        (viewDateChange)="closeOpenMonthViewDay()"
+                    >
+                        Vorige
+                    </div>
+                    <div
+                        class="btn btn-outline-secondary"
+                        mwlCalendarToday
+                        [(viewDate)]="viewDate"
+                    >
+                        Vandaag
+                    </div>
+                    <div
+                        class="btn btn-primary"
+                        mwlCalendarNextView
+                        [view]="view"
+                        [(viewDate)]="viewDate"
+                        (viewDateChange)="closeOpenMonthViewDay()"
+                    >
+                        Volgende
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group">
+                    <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+                        Maand
+                    </div>
+                    <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+                        Week
+                    </div>
+                    <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+                        Dag
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #loading>
+            <div class="text-center">
+                <i class="fas fa-spin fa-spinner fa-5x"></i><br />
+                Afpraken laden...
+            </div>
+        </ng-template>
+        <div *ngIf="events$ | async; else loading; let events">
+            <div [ngSwitch]="view">
+                <mwl-calendar-month-view
+                    *ngSwitchCase="CalendarView.Month"
+                    [viewDate]="viewDate"
+                    [events]="events"
+                    [refresh]="refresh"
+                    (dayClicked)="openModel($event.day.date)"
+                    (eventClicked)="handleOnEventClick($event.event)"
+                >
+                </mwl-calendar-month-view>
+                <mwl-calendar-week-view
+                    *ngSwitchCase="CalendarView.Week"
+                    [viewDate]="viewDate"
+                    [events]="events"
+                    [refresh]="refresh"
+                    (eventClicked)="handleOnEventClick($event.event)"
+                    (hourSegmentClicked)="openModel($event.date)"
+                >
+                </mwl-calendar-week-view>
+                <mwl-calendar-day-view
+                    *ngSwitchCase="CalendarView.Day"
+                    [viewDate]="viewDate"
+                    [events]="events"
+                    [refresh]="refresh"
+                    (eventClicked)="handleOnEventClick($event.event)"
+                    (hourSegmentClicked)="openModel($event.date)"
+                >
+                </mwl-calendar-day-view>
+            </div>
+        </div>
+        <div class="mt-4 d-flex legend">
+            <p class="d-inline item on-location mb-0">
+                <small>Afspraak op locatie</small>
+            </p>
+            <p class="d-inline ml-3 item at-home mb-0">
+                <small>Afspraak digitaal</small>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="modal fade show" [class.is-active]="addModalOpen" [class.show]="addModalOpen">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agenda-modal" >Nieuwe afspraak</h5>
+                <button type="button" class="close" (click)="closeModel()">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="response.message !== null && !response.success" class="alert alert-danger">
+                    {{ response.message }}
+                </div>
+                <form role="form">
+                    <div class="form-group">
+                        <label for="title">Titel:</label>
+                        <input
+                            id="title"
+                            class="form-control"
+                            name="title"
+                            type="text"
+                            placeholder="Titel"
+                            [class.is-invalid]="response.errors.title"
+                            [(ngModel)]="appointmentForm.title">
+                        <div *ngIf="response.errors.title" class="invalid-feedback">
+                            {{ response.errors.title }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="start">Begin:</label>
+                            <input
+                                id="start"
+                                name="startDate"
+                                class="form-control"
+                                placeholder="Start datum van afspraak"
+                                [class.is-invalid]="response.errors.start"
+                                [owlDateTime]="start"
+                                [owlDateTimeTrigger]="start"
+                                [(ngModel)]="appointmentForm.start"
+                            >
+                            <div *ngIf="response.errors.start" class="invalid-feedback">
+                                {{ response.errors.start }}
+                            </div>
+                            <owl-date-time #start></owl-date-time>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="end">Einde:</label>
+                            <input
+                                id="end"
+                                name="endDate"
+                                class="form-control"
+                                placeholder="Eind datum van afspraak"
+                                [class.is-invalid]="response.errors.end"
+                                [owlDateTime]="end"
+                                [owlDateTimeTrigger]="end"
+                                [(ngModel)]="appointmentForm.end"
+                            >
+                            <div *ngIf="response.errors.end" class="invalid-feedback">
+                                {{ response.errors.end }}
+                            </div>
+                            <owl-date-time #end></owl-date-time>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="!appointmentForm.id">
+                        <label for="patient">Patient:</label>
+                        <select name="patient" id="patient" class="custom-select" [(ngModel)]="appointmentForm.patient">
+                            <option
+                                *ngFor="let patient of patients"
+                                [value]="patient.id"
+                                [selected]="appointmentForm.patient !== undefined"
+                            >
+                                {{ patient.lastName }}, {{ patient.firstName }} {{ patient.middleName }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Beschrijving</label>
+                        <textarea class="form-control" id="description" name="description" rows="4" [(ngModel)]="appointmentForm.description"></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="appointmentForm.onLocation" name="onLocation" id="onLocation">
+                        <label class="form-check-label" for="onLocation">
+                            Op locatie
+                        </label>
+                    </div>
+                    <div *ngIf="!appointmentForm.onLocation && appointmentForm.id" class="my-3 chat-room text-primary">
+                        <span role="button" (click)="createChatRoom()">
+                            Maak chatruimte
+                        </span>
+                    </div>
+                    <hr>
+                    <button type="button" class="btn btn-primary btn-sm" (click)="submitAgendaForm()" id = "bewerkButton">
+                        <i class="fas fa-save"></i>&nbsp; {{ appointmentForm.id ? 'Bewerk afspraak' : 'Maak afspraak' }}
+                    </button>
+                    <button *ngIf="appointmentForm.id" (click)="deleteEvent()" class="btn float-right btn-outline-danger btn-sm ml-1" id = "verwijderButton">
+                        <i class="fas fa-trash"></i>&nbsp; Verwijderen
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

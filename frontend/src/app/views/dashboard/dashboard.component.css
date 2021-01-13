@@ -1,0 +1,60 @@
+
+#div-1-header{
+    text-align: center;
+    margin-bottom: auto;
+    padding-bottom: 2%;
+}
+
+#div-2-header{
+    text-align: center;
+    margin-bottom: auto;
+    padding-bottom: 2%;
+}
+
+.top-text{
+    text-align: center;
+    margin-bottom: auto;
+}
+
+
+#topright-text {
+    float: right;
+    padding-top: 1%;
+}
+
+#topleft-text {
+    padding: 2%;
+}
+
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+}
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+#modal-button {
+    text-align: center;
+    width: 100%;
+}
+
+.col {
+    margin-bottom: 50px;
+}
+
+#modal-span{
+    float:right;
+}
+.btn-primary {
+    max-width: 50%;
+    margin: 0 25% 1rem 25%;
+
+}
+
