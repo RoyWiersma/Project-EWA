@@ -27,19 +27,21 @@ export class DossierComponent implements OnInit {
 
     startCountdown(seconds): void {
         this.counter = seconds;
-        const reset = 600;
-        let amountOfTimesAsked = 0;
+        let reset = 10;
         this.afkCounter = 60;
 
         const interval = setInterval(() => {
             this.counter--;
-            if (this.counter === 0 && amountOfTimesAsked !== 1) {
-                amountOfTimesAsked++;
+            if (this.counter === 0) {
                 document.getElementById('countdownModalButton').click();
                 const afkInterval = setInterval(() => {
                     document.getElementById('modalButton').addEventListener('click', () => {
                         clearInterval(afkInterval);
                         this.counter = reset;
+                        if (reset === 0){
+                            document.getElementById('countdownModalButton').click();
+                            return;
+                        }
                     });
                     this.afkCounter--;
                     if (this.afkCounter === 0) {
@@ -63,10 +65,9 @@ export class DossierComponent implements OnInit {
             .subscribe((response: HttpResponse<any>) => {
                 if (response != null) {
                     document.getElementById('loginModalButton').click();
-                    this.startCountdown(240);
+                    this.startCountdown(10);
                     this.dossierService.getPatientDossier().subscribe((result: Patient) => {
                         this.patientDossier = result[0];
-                        console.log(result[0]);
                     });
                 }
                 else {
