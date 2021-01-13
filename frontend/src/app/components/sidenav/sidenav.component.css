@@ -35,3 +35,6 @@ aside {
 .nav-link {
     cursor: pointer;
 }
+.navbar-brand {
+    margin-right: 0!important;
+}
