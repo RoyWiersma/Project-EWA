@@ -26,13 +26,13 @@ export class ChatComponent implements OnInit {
     constructor(public loginService: LoginService, private Server: HttpClient) { }
 
     ngOnInit(): void {
-        console.log(this.messages);
         this.isDoctor = this.loginService.getLoggedInUser instanceof GP;
         this.Server.get(this.API_URL, {
             headers: { authorization: localStorage.getItem('jwt') || null }
         }).subscribe((chat: Chat[]) => {
             this.chats = chat;
         });
+        console.log(this.chats);
     }
 
     setChat(id: string): void {
