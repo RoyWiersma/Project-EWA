@@ -21,9 +21,15 @@ export class ChatComponent implements OnInit {
 
     chatId: string;
     currentId: string;
-    newMessage = new Message();
+    messageCount: number;
+    newMessage: Message;
+    loaded: boolean;
 
-    constructor(public loginService: LoginService, private Server: HttpClient) { }
+    constructor(public loginService: LoginService, private Server: HttpClient) {
+        this.messageCount = 0;
+        this.loaded = false;
+        this.newMessage = new Message();
+    }
 
     ngOnInit(): void {
         this.isDoctor = this.loginService.getLoggedInUser instanceof GP;
@@ -52,8 +58,17 @@ export class ChatComponent implements OnInit {
                 return { ...message, dateTime: format(new Date(message.dateTime), 'dd-MM-yyyy kk:mm:ss') };
             });
 
-            const chatElement = document.querySelector('#chat-messages .row');
-            chatElement.scrollTop = chatElement.scrollHeight;
+            if (!this.loaded && this.messageCount > 0) {
+                const chatElement = document.querySelector('#chat-messages .row');
+                chatElement.scrollTop = chatElement.scrollHeight;
+                this.loaded = true;
+            }
+
+            if (this.messages.length > this.messageCount) {
+                this.messageCount = this.messages.length;
+                const chatElement = document.querySelector('#chat-messages .row');
+                chatElement.scrollTop = chatElement.scrollHeight;
+            }
         });
     }
 
