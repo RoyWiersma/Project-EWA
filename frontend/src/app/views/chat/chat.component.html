@@ -15,6 +15,7 @@
                 </div>
             </div>
             <div class="col-9" id="chat-messages">
+                <div *ngIf="messages === undefined || null">Geen messages, zoek wat vrienden</div>
                 <div class="row">
                     <div class="message-texts overflow-auto"
                          [class.container-right]="message.sender.email === loginService.getLoggedInUser.email"
