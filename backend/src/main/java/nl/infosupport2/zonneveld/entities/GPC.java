@@ -33,9 +33,6 @@ public class GPC {
     @Column(nullable = false)
     private boolean hasPharmacy = false;
 
-    @OneToMany(mappedBy = "medicine")
-    private Set<MedicineHasGPC> medicineHasGPCS = new HashSet<>();
-
     public GPC(String name, String address, String postalCode, String email, String phoneNumber, String mobileNumber, boolean hasPharmacy) {
         this.name = name;
         this.address = address;
@@ -110,17 +107,5 @@ public class GPC {
 
     public void setHasPharmacy(boolean hasPharmacy) {
         this.hasPharmacy = hasPharmacy;
-    }
-
-    public Set<MedicineHasGPC> getMedicineHasGPCS() {
-        return medicineHasGPCS;
-    }
-
-    public void setMedicineHasGPCS(Set<MedicineHasGPC> medicineHasGPCS) {
-        this.medicineHasGPCS = medicineHasGPCS;
-    }
-
-    public void addMedicineHasGPC(MedicineHasGPC medicineHasGPC) {
-        this.medicineHasGPCS.add(medicineHasGPC);
     }
 }

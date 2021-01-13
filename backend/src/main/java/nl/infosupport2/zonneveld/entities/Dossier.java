@@ -20,14 +20,6 @@ public class Dossier {
     @JsonBackReference
     private Patient patient;
 
-    @ManyToMany
-    @JoinTable(name = "dossier_has_medicine",
-        joinColumns = { @JoinColumn(name = "medicine_id", nullable = false, updatable = false) },
-        inverseJoinColumns = { @JoinColumn(name = "dossier_id", nullable = false, updatable = false) }
-    )
-    @JsonView(UserView.PublicView.class)
-    private List<Medicine> medicines = new ArrayList<>();
-
     @OneToMany(mappedBy = "dossier", cascade = CascadeType.REMOVE)
     @JsonView(UserView.PublicView.class)
     private List<MedicalMedia> media = new ArrayList<>();
@@ -52,14 +44,6 @@ public class Dossier {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
-    }
-
-    public List<Medicine> getMedicines() {
-        return medicines;
-    }
-
-    public void addMedicines(Medicine medicine) {
-        this.medicines.add(medicine);
     }
 
     public List<MedicalMedia> getMedia() {
