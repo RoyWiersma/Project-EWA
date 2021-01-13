@@ -20,7 +20,6 @@ export class DossierComponent implements OnInit {
     public afkCounter: number;
     public patientDossier: Patient;
     public password: string;
-    public showData = false;
 
     constructor(public loginservice: LoginService, private router: Router, public dossierService: DossierService) {
 
@@ -65,7 +64,10 @@ export class DossierComponent implements OnInit {
                 if (response != null) {
                     document.getElementById('loginModalButton').click();
                     this.startCountdown(240);
-                    this.showData = true;
+                    this.dossierService.getPatientDossier().subscribe((result: Patient) => {
+                        this.patientDossier = result[0];
+                        console.log(result[0]);
+                    });
                 }
                 else {
                     console.error('er ging iets mis');
@@ -90,9 +92,7 @@ export class DossierComponent implements OnInit {
         this.currentUser = this.loginservice.getLoggedInUser;
         if (this.isPatient()) {
             document.getElementById('loginModalButton').click();
-            this.dossierService.getPatientDossier().subscribe((result: Patient) => {
-                this.patientDossier = result[0];
-            });
+
         }
     }
 
