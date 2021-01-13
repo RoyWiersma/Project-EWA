@@ -18,14 +18,15 @@ export class LoginService {
 
     get getLoggedInUser(): User {
         const { type, user } = JSON.parse(sessionStorage.getItem('user'));
+
         let loggedInUser: User;
 
         if (type === Type.PATIENT) {
-            loggedInUser = new Patient(
+            loggedInUser = new Patient(null,
                 user.firstName, user.lastName, user.middleName, user.email, user.phoneNumber, user.mobileNumber
             );
         } else if (type === Type.GP) {
-            loggedInUser = new GP(
+            loggedInUser = new GP( null,
                 user.firstName, user.lastName, user.middleName, user.email, user.phoneNumber, user.mobileNumber,
                 user.isAdmin, user.speciality
             );

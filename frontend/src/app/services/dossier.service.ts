@@ -28,7 +28,6 @@ export class DossierService {
     public postPassword(password: string): Observable<any> {
         this.newPatient.password = password;
         const tempPatient: User = this.newPatient;
-        console.log(tempPatient);
         return this.httpClient.post(
             `${this.API_URL}/login`,
             JSON.stringify(tempPatient),

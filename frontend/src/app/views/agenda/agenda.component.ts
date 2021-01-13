@@ -130,7 +130,7 @@ export class AgendaComponent implements OnInit {
         this.doctorService.getPatients()
             .subscribe(response => {
                 this.patients = response.patients;
-            }, error => console.log(error));
+            }, error => console.error(error));
 
         this.events$ = this.agendaService.getAgendaItems()
             .pipe(
