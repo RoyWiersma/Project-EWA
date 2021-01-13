@@ -11,8 +11,8 @@ import {Router} from '@angular/router';
     styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
-    public loggedInGp: GP;
-    public loggedInPatient: Patient;
+    public loggedInGp: GP = null;
+    public loggedInPatient: Patient = null;
     public currentUser: User;
 
     constructor(public loginService: LoginService, private router: Router) {
@@ -21,12 +21,12 @@ export class SidenavComponent implements OnInit {
     ngOnInit(): void {
         if (this.loginService.getLoggedInUser instanceof GP) {
             this.loggedInGp = this.loginService.getLoggedInUser as GP;
-        } else {
-            this.loggedInGp = null;
         }
         if (this.loginService.getLoggedInUser instanceof Patient) {
             this.loggedInPatient = this.loginService.getLoggedInUser as Patient;
         }
+
+        console.log(this.loggedInGp, this.loggedInPatient);
     }
 
     handleLogout(): void {
