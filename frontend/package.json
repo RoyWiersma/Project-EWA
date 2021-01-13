@@ -13,11 +13,9 @@
     "private": true,
     "dependencies": {
         "@angular/animations": "~10.0.14",
-        "@angular/cli": "~10.0.8",
         "@angular/cdk": "^10.2.7",
         "@angular/common": "~10.0.14",
         "@angular/compiler": "~10.0.14",
-        "@angular/compiler-cli": "~10.0.14",
         "@angular/core": "~10.0.14",
         "@angular/forms": "~10.0.14",
         "@angular/localize": "^10.2.4",
