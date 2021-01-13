@@ -1,0 +1,226 @@
+#navbar {
+    background-color: #99ccff;
+    opacity: 0.9;
+}
+
+#container-nav {
+    justify-content: space-around;
+}
+
+#zonnevelt-text {
+    font-size: xx-large;
+    font-max-size: xx-large;
+    font-style: normal;
+    font-weight: bold;
+    color: black;
+}
+
+#container-top {
+    max-width: 100%;
+    background-size: 100% 100%;
+    background-position: center;
+    background-image: url(src/assets/images/huisarts.jpg); /*Blurred photo*/
+    width: 100%;
+    background-repeat: no-repeat;
+    height: 60rem;
+}
+.arrow {
+    margin-top: 22rem;
+    cursor: pointer;
+    height: 120px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transition: transform 0.1s;
+    width: 80px;
+    transform: rotate(90deg);
+}
+.arrow-top, .arrow-bottom {
+    background-color: black;
+    height: 4px;
+    left: -5px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+.arrow-top:after, .arrow-bottom:after {
+    background-color: #99ccff;
+    content: "";
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: all 0.15s;
+}
+.arrow-top {
+    transform: rotate(45deg);
+    transform-origin: bottom right;
+}
+.arrow-top:after {
+    left: 100%;
+    right: 0;
+    transition-delay: 0s;
+}
+.arrow-bottom {
+    transform: rotate(-45deg);
+    transform-origin: top right;
+}
+.arrow-bottom:after {
+    left: 0;
+    right: 100%;
+    transition-delay: 0.15s;
+}
+.arrow:hover .arrow-top:after {
+    left: 0;
+    transition-delay: 0.15s;
+}
+.arrow:hover .arrow-bottom:after {
+    right: 0;
+    transition-delay: 0s;
+}
+
+@media screen and (min-width: 300px) {
+    #navbar {
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+    #h1text {
+        font-size: x-large;
+        font-weight: bold;
+    }
+
+    #h3text {
+        font-size: large;
+        font-weight: bold;
+    }
+
+    .btn-lg {
+        width: 150px !important;
+    }
+}
+@media screen and (max-width: 580px) {
+
+    #img-2{
+        transform: translate(-50%, 10px);
+
+        width: 300px;
+        height: 300px;
+    }
+
+    #footer{
+   font-size:5vw;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    #photo-div {
+        margin-right: 1px;
+    }
+
+    #div3 {
+        transform: translate(40%, 10px);
+    }
+
+    #div2{
+        transform: translate(50%, 10px);
+    }
+    #container-top {
+        height: 60rem;
+    }
+    .arrow{
+        margin-top: 10rem !important;
+    }
+}
+
+#div-second {
+    height: 600px;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    text-align: left;
+}
+
+#div-container {
+    border-style: solid;
+    float: right;
+    text-align: right;
+    padding: 10px;
+    box-shadow: 3px 5px;
+    background-color: whitesmoke;
+}
+
+#loginButton {
+    font-size: x-large;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 300px;
+}
+
+#loginButton:hover {
+    background-color: black;
+    color: white;
+}
+
+#form-login{
+    font-size: x-large;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+#h1text {
+    color: black;
+}
+
+#h3text {
+    color: black;
+}
+
+#container2 {
+    width: 2000px;
+    height: 800px;
+    background-color: black;
+    padding: 75px 0 95px 0;
+
+}
+
+section {
+    /*background-image: linear-gradient(180deg, white, lightslategrey);*/
+    /*opacity: 0.8;*/
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+#div-row {
+    max-width: 100%;
+    margin: auto;
+}
+
+#div3 {
+    margin: auto;
+    width: 50%;
+}
+
+#div2 {
+    width: 50%;
+}
+
+#img-2 {
+    border-radius: 50% !important;
+    padding: 0 15px 15px 15px;
+    background: none;
+    height: auto;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #99ccff;
+    color: black;
+    text-align: center;
+    height: 50px;
+    font-size: x-large;
+    font-weight: bold;
+}

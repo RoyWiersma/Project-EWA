@@ -1,0 +1,65 @@
+<aside>
+    <div class="container-fluid">
+        <div class="navbar-header text-center">
+            <img class="mt-3 logo" src="../../../assets/images/logo.svg" alt="Site logo">
+            <a class="navbar-brand" routerLink="../home">
+                <h4>Zonnevelt</h4>
+            </a>
+            <hr class="mt-2 mb-3">
+        </div>
+    </div>
+    <nav class="nav flex-column nav-pills">
+        <div class="nav-link">
+            <a routerLink="../home">
+                <i class="fas fa-columns mr-4"></i>
+                Dashboard
+            </a>
+        </div>
+        <div class="nav-link" *ngIf="loggedInPatient">
+            <a routerLink="dossier"> <i class="fas fa-address-book mr-4"></i>
+                Mijn Dossier
+            </a>
+        </div>
+        <div class="nav-link" *ngIf="loggedInGp">
+            <a routerLink="patients">
+                <i class="fas fa-address-book mr-4"></i>
+                Mijn patienten
+            </a>
+        </div>
+        <div *ngIf="loggedInGp && loggedInGp.isAdmin" class="nav-link">
+            <a routerLink="gps">
+                <i class="fas fa-user-lock mr-4"></i>Manage Doctors
+            </a>
+        </div>
+        <div class="nav-link">
+            <a routerLink="agenda">
+                <i class="fas fa-calendar mr-4"></i>
+                Mijn afspraken
+            </a>
+        </div>
+        <div class="nav-link">
+            <a routerLink="chat">
+                <i class="fas fa-comments mr-4"></i>
+                Chat
+            </a>
+        </div>
+        <div *ngIf="loggedInGp && loggedInGp.isAdmin" class="nav-link">
+            <a routerLink="../home/admin">
+                <i class="fas fa-user-lock mr-4"></i>Admin
+            </a>
+        </div>
+        <div class="nav-link">
+            <a (click)="handleLogout()">
+                <i class="fas fa-sign-out-alt mr-4"></i>
+                Log uit
+            </a>
+        </div>
+    </nav>
+    <div class="footer">
+        <hr>
+        <a href="tel:0612345678">
+            <i class="fas fa-phone-alt mr-4"></i>
+            06-12345678
+        </a>
+    </div>
+</aside>

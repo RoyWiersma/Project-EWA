@@ -1,0 +1,82 @@
+<div class="card my-3">
+    <div class="position-relative d-flex justify-content-center w-100">
+        <div
+            *ngIf="response.message !== null"
+            class="alert alert-dismissible position-absolute"
+            [class.alert-success]="response.success"
+            [class.alert-danger]="!response.success"
+        >
+            {{ response.message }}
+            <button type="button" class="close" (click)="response.message = null">
+                <span>&times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <ng-container *ngTemplateOutlet="(!gp && !response.message) ? loading : patientDetails"></ng-container>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="h-100 d-flex justify-content-center align-items-center">
+        <i class="fas fa-spin fa-spinner fa-5x"></i><br /><br />
+        Patient laden...
+    </div>
+</ng-template>
+
+<ng-template #patientDetails>
+    <div class="d-flex align-items-center mb-2">
+        <h3 class="card-title">{{ gp.firstName }} {{ gp.middleName }} {{ gp.lastName }}</h3>
+    </div>
+    <h5 class="font-weight-bold mb-1">Algemene gegevens</h5>
+    <hr class="mb-4 mt-0">
+    <form class="mb-2">
+        <div class="row mb-3">
+            <div class="col-2 d-flex align-items-center">
+                <p class="font-weight-bold m-0">Naam</p>
+            </div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Voornaam" name="patient-firstname" [(ngModel)]="editedGP.firstName">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Achternaam" name="patient-lastName" [(ngModel)]="editedGP.lastName">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Tussenvoegsel" name="patient-middleName" [(ngModel)]="editedGP.middleName">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2 d-flex align-items-center">
+                <p class="font-weight-bold m-0">E-mail</p>
+            </div>
+            <div class="col-7">
+                <input type="email" class="form-control" placeholder="E-mail" name="patient-email" [(ngModel)]="editedGP.email">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2 d-flex align-items-center">
+                <p class="font-weight-bold m-0">Telefoonnummer</p>
+            </div>
+            <div class="col-4">
+                <input type="tel" class="form-control" placeholder="Telefoonnummer" name="patient-phonenumber" [(ngModel)]="editedGP.phoneNumber">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2 d-flex align-items-center">
+                <p class="font-weight-bold m-0">Mobiele nummber</p>
+            </div>
+            <div class="col-4">
+                <input type="tel" class="form-control" placeholder="Mobiele nummber" name="patient-mobilenumber" [(ngModel)]="editedGP.mobileNumber">
+            </div>
+        </div>
+        <div class="mt-4 d-flex justify-content-end">
+            <button (click)="updateGP()" id="submit-edit-profile" type="button" class="btn btn-success" [disabled]="!isEdited(gp, editedGP)">
+                <i class="fas fa-save mr-1"></i> Opslaan
+            </button>
+        </div>
+    </form>
+</ng-template>
