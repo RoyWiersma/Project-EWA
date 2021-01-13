@@ -1,215 +1,194 @@
-<h2 id="topleft-text">Dashboard</h2>
+<h2 style="padding: 2%">Dashboard</h2>
 
-<div class="row">
-    <div class="col-sm-5 ">
-        <h2 id="div-1-header"> Welkom bij zonneveld! </h2>
-        <h4> Welkom bij
-            zonneveld, {{this.currentUser.firstName }} {{this.currentUser.middleName}} {{this.currentUser.lastName}} </h4>
-        <h4>Het is nu {{date | date: 'short'}}</h4>
+<div class="row row-cols-2 g-2">
+    <div class="col">
+        <div class="card bg-light h-100">
+            <div class="card-body">
+                <h2 id="div-1-header"> Welkom bij zonnevelt! </h2>
+                <h6> Welkom bij
+                    zonnevelt: {{this.currentUser.firstName }} {{this.currentUser.middleName}} {{this.currentUser.lastName}} <br><br>Het is vandaag {{date | date: 'fullDate'}}</h6>
 
-    </div>
-    <div class="col-sm-5">
-        <h2 id="div-2-header"> Afspraken: </h2>
-        <div *ngIf="isGP()">
-            <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <table class="table table-borderless table-striped mb-0 table-responsive-md table-hover">
-                    <thead>
-                    <tr>
-                        <th>Patient</th>
-                        <th>op Locatie</th>
-                        <th>Datum & tijd</th>
-                        <th>Notitie</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let item of patientData.slice(0,5)" (click)="redirectToAgenda()">
-                        <td *ngIf="patientData.length == 0">Sorry, er zijn helaas geen afspraken</td>
-                        <td>{{ item.patient.firstName }} {{ item.patient.lastName }} {{ item.patient.middleName }}</td>
-                        <td>
-                            <div *ngIf="item.onLocation.valueOf(); else onlineAppointment">Op Locatie</div>
-                            <ng-template #onlineAppointment>Online</ng-template>
-                        </td>
-                        <td>{{ item.start | date:"dd-MM-yy hh:mm"}}</td>
-                        <td>{{ item.description }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-        <div *ngIf="isPatient()">
-            <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                <table id="dtDynamicVerticalScrollExample2"
-                       class="table table-borderless table-striped mb-0 table-responsive-md table-hover">
-                    <thead>
-                    <tr>
-                        <th>op Locatie</th>
-                        <th>Datum & tijd</th>
-                        <th>Notitie</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let appointment of doctorData.slice(0,5)" (click)="redirectToAgenda()">
-                        <td *ngIf="doctorData.length == 0">Sorry, er zijn helaas geen afspraken</td>
-
-                        <td>
-                            <div *ngIf="appointment.onLocation.valueOf(); else onlineAppointment">Op Locatie</div>
-                            <ng-template #onlineAppointment>Online</ng-template>
-                        </td>
-                        <td>{{appointment.start | date:"dd-MM-yy hh:mm"}}</td>
-                        <td>{{appointment.description}}</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
-</div>
-<div class="w-100"></div>
-<div class="row">
-    <div class="col-sm-5">
+
+    <div class="col">
+        <div class="card bg-light h-100">
+            <div class="card-body">
+                <h2 id="div-2-header"> Afspraken: </h2>
                 <div *ngIf="isGP()">
-        <h2 id="div-3-header" class="top-text"> Uw Patiënten: </h2>
-        <table style="width:100%" class="table  table-borderless table-striped mb-0 table-hover">
-            <thead>
-            <tr>
-                <th>Patient</th>
-                <th>Actie</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let patient of patients">
-                <td>
-                    {{patient.firstName}} {{(patient.middleName === undefined ? '' : (patient.middleName === null ? '' : (patient.middleName === '' ? '' : (patient.middleName + ' '))))}}{{patient.lastName}}
-                </td>
-                <td>
-                    <i style='font-size:24px' class='fas' data-toggle="modal" data-target="#exampleModalCenter"
-                       (click)="showInfo(patient)" ngbTooltip="Klik voor meer informatie">&#xf406;</i>
-                </td>
-            </tr>
-            <tr></tr>
-            </tbody>
-        </table>
-
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal-title">Gegevens:</h5>
-                        <span aria-hidden="true" class="close" data-dismiss="modal" aria-label="Close"
-                              id="modal-span">&times;</span>
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <table class="table table-borderless  mb-0 table-responsive-md table-hover">
+                            <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>op Locatie</th>
+                                <th>Datum & tijd</th>
+                                <th>Notitie</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of patientData.slice(0,5)" (click)="redirectToAgenda()">
+                                <td *ngIf="patientData.length == 0">Sorry, er zijn helaas geen afspraken</td>
+                                <td>{{ item.patient.firstName }} {{ item.patient.lastName }} {{ item.patient.middleName }}</td>
+                                <td>
+                                    <div *ngIf="item.onLocation.valueOf(); else onlineAppointment">Op Locatie</div>
+                                    <ng-template #onlineAppointment>Online</ng-template>
+                                </td>
+                                <td>{{ item.start | date:"dd-MM-yy hh:mm"}}</td>
+                                <td>{{ item.description }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="modal-body">
-                        <form role="form" class="login-form" *ngIf="selectedUser">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Voornaam:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext"
-                                           value="{{selectedUser.firstName}}">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Middelnaam:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext"
-                                           value=" {{selectedUser.middleName}}">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Achternaam:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext"
-                                           value=" {{selectedUser.lastName}}">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Email:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext"
-                                           value=" {{selectedUser.email}}">
-                                </div>
-                            </div>
-                            <div class="form-group row" *ngIf="selectedUser.phoneNumber !== null">
-                                <label class="col-sm-3 col-form-label">Telefoonnummer: </label>
-                                <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext"
-                                           value=" {{selectedUser.phoneNumber}}">
-                                </div>
-                            </div>
-                            <div class="form-group row" *ngIf="selectedUser.mobileNumber !== null">
-                                <label class="col-sm-3 col-form-label">Mobiele nummer: </label>
-                                <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext"
-                                           value=" {{selectedUser.mobileNumber}}">
-                                </div>
-                            </div>
-                            <hr style="width: 100%; border-style: solid; border-color: lightgray">
-                            <button class="btn" id="modal-button" (click)="redirectToDossier()">Meer zien</button>
-                        </form>
+
+                </div>
+                <div *ngIf="isPatient()">
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <table id="dtDynamicVerticalScrollExample2"
+                               class="table table-borderless mb-0 table-responsive-md table-hover">
+                            <thead>
+                            <tr>
+                                <th>op Locatie</th>
+                                <th>Datum & tijd</th>
+                                <th>Notitie</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let appointment of doctorData.slice(0,5)" (click)="redirectToAgenda()">
+                                <td *ngIf="doctorData.length == 0">Sorry, er zijn helaas geen afspraken</td>
+
+                                <td>
+                                    <div *ngIf="appointment.onLocation.valueOf(); else onlineAppointment">Op Locatie
+                                    </div>
+                                    <ng-template #onlineAppointment>Online</ng-template>
+                                </td>
+                                <td>{{appointment.start | date:"dd-MM-yy hh:mm"}}</td>
+                                <td>{{appointment.description}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div *ngIf="isPatient()">
-        <h2 class="top-text"> Uw Dokter: </h2>
-        <table style="width:100%" class="table  table-borderless table-striped mb-0 table-hover">
-            <tbody>
-            <tr *ngFor="let doc of doctor">
-                <td>{{doc[1] + " " + (doc[2] === null ? '' : (doc[2] === '' ? '' : (doc[2] + ' '))) + doc[3]}}</td>
-            </tr>
-        </table>
-    </div>
-</div>
 
-<div class="col-sm-5">
-    <div>
-        <div *ngFor="let chat of chats.slice(0, 1)">
-            <h4 *ngIf="isGP()">Uw laatste chat was met: {{chat.patient.firstName}} {{chat.patient.middleName}} {{chat.patient.lastName}}</h4>
-            <h4 *ngIf="isPatient()">Uw laatste chat was met: {{chat.doctor.firstName}} {{chat.doctor.middleName}} {{chat.doctor.lastName}}</h4>
-            <button class="btn" (click)="redirectToChat()">Ga naar</button>
+    <div class="col">
+        <div class="card bg-light h-100">
+            <div class="card-body">
+                <div *ngIf="isGP()">
+                    <h2 id="div-3-header" class="top-text"> Uw Patiënten: </h2>
+                    <table style="width:100%" class="table  table-borderless mb-0 table-hover">
+                        <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Actie</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let patient of patients">
+                            <td>
+                                {{patient.firstName}} {{(patient.middleName === undefined ? '' : (patient.middleName === null ? '' : (patient.middleName === '' ? '' : (patient.middleName + ' '))))}}{{patient.lastName}}
+                            </td>
+                            <td>
+                                <i style='font-size:24px' class='fas' data-toggle="modal"
+                                   data-target="#exampleModalCenter"
+                                   (click)="showInfo(patient)" ngbTooltip="Klik voor meer informatie">&#xf406;</i>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                        </tbody>
+                    </table>
+
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-title">Gegevens:</h5>
+                                    <span aria-hidden="true" class="close" data-dismiss="modal" aria-label="Close"
+                                          id="modal-span">&times;</span>
+                                </div>
+                                <div class="modal-body">
+                                    <form role="form" class="login-form" *ngIf="selectedUser">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Voornaam:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                       value="{{selectedUser.firstName}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Middelnaam:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                       value=" {{selectedUser.middleName}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Achternaam:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                       value=" {{selectedUser.lastName}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Email:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                       value=" {{selectedUser.email}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" *ngIf="selectedUser.phoneNumber !== null">
+                                            <label class="col-sm-3 col-form-label">Telefoonnummer: </label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                       value=" {{selectedUser.phoneNumber}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" *ngIf="selectedUser.mobileNumber !== null">
+                                            <label class="col-sm-3 col-form-label">Mobiele nummer: </label>
+                                            <div class="col-sm-9">
+                                                <input type="text" readonly class="form-control-plaintext"
+                                                       value=" {{selectedUser.mobileNumber}}">
+                                            </div>
+                                        </div>
+                                        <hr style="width: 100%; border-style: solid; border-color: lightgray">
+                                        <button class="btn" id="modal-button" (click)="redirectToDossier()">Meer zien
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="isPatient()">
+            <h2 class="top-text"> Uw Dokter: </h2>
+            <table style="width:100%" class="table  table-borderless mb-0 table-hover">
+                <tbody>
+                <tr *ngFor="let doc of doctor">
+                    <td>{{doc[1] + " " + (doc[2] === null ? '' : (doc[2] === '' ? '' : (doc[2] + ' '))) + doc[3]}}</td>
+                </tr>
+            </table>
         </div>
     </div>
 
-</div>
-<!--    <h2 style="padding: 2%">Dashboard</h2>-->
+    <div class="col">
+        <div class="card bg-light h-100">
+            <div class="card-body" *ngFor="let chat of chats.slice(0, 1)">
+                <h2 class="top-text" *ngIf="isGP()">Uw laatste chat was
+                    met: <h6>{{chat.patient.firstName}} {{chat.patient.middleName}} {{chat.patient.lastName}}</h6></h2>
+                <h2 class="top-text" *ngIf="isPatient()">Uw laatste chat was
+                    met: <h6>{{chat.doctor.firstName}} {{chat.doctor.middleName}} {{chat.doctor.lastName}}</h6></h2>
+            </div>
+            <button class="btn btn-primary" (click)="redirectToChat()">Ga naar chat</button>
+        </div>
 
-<!--    <div class="row row-cols-2 g-2">-->
-<!--        <div class="col">-->
-<!--            <div class="card bg-light h-100">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Welkom bij Infosupport</h5>-->
-<!--                    <p class="card-text">Hier helpen wij u van uw kontkwaaltjes af</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div class="card bg-light h-100">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Afspraken</h5>-->
-<!--                    <p class="card-text"></p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div class="card bg-light h-100">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Chat</h5>-->
-<!--                    <p class="card-text"></p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--            <div class="card bg-light h-100">-->
-<!--                <div class="card-body">-->
-<!--                    <h5 class="card-title">Card title</h5>-->
-<!--                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to-->
-<!--                        additional content. This content is a little bit longer.</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    </div>
 </div>
 
 

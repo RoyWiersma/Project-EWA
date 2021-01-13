@@ -1,14 +1,4 @@
-.w-100{
-    padding-top: 100px;
-}
 
-.col-sm-5{
-    margin: auto;
-    border-radius: 25px;
-    border: 2px solid black;
-    padding: 20px;
-    height: 300px;
-}
 #div-1-header{
     text-align: center;
     margin-bottom: auto;
@@ -62,10 +52,9 @@ th, td {
 #modal-span{
     float:right;
 }
+.btn-primary {
+    max-width: 50%;
+    margin: 0 25% 1rem 25%;
 
-button{
-    background-color: #e0f7fa;
-    border: solid 1px black;
 }
-
 

@@ -192,7 +192,7 @@
                             Op locatie
                         </label>
                     </div>
-                    <div *ngIf="appointmentForm.onLocation" class="my-3 chat-room text-primary">
+                    <div *ngIf="!appointmentForm.onLocation && appointmentForm.id" class="my-3 chat-room text-primary">
                         <span role="button" (click)="createChatRoom()">
                             Maak chatruimte
                         </span>

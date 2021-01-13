@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -11,6 +11,7 @@ import {HomeComponent} from './views/home/home.component';
 import {RouterModule} from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
 import {CountdownModule} from 'ngx-countdown';
+import '@angular/common/locales/global/nl';
 import { GpsComponent } from './views/gps/gps.component';
 import { GpDetailsComponent } from './views/gps/gp-details/gp-details.component';
 
@@ -30,7 +31,7 @@ import { GpDetailsComponent } from './views/gps/gp-details/gp-details.component'
         MainLayoutComponent,
         HomeComponent
     ],
-    providers: [],
+    providers: [ {provide: LOCALE_ID, useValue: 'nl'}],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

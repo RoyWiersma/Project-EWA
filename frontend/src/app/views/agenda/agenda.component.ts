@@ -54,14 +54,11 @@ export class AgendaComponent implements OnInit {
     constructor(private modal: NgbModal, private agendaService: AgendaService,
                 public patientService: PatientService, private loginService: LoginService, public doctorService: DoctorService,
                 private httpClient: HttpClient, private router: Router) {
-
-
         this.response = new ValidationResponse();
     }
 
     ngOnInit(): void {
         this.fetchAgendaItems();
-
     }
 
     submitAgendaForm(): void {
@@ -81,7 +78,6 @@ export class AgendaComponent implements OnInit {
 
     handleOnEventClick(event: CalendarEvent): void {
         Object.keys(event).forEach(key => this.appointmentForm[key] = event[key]);
-        console.log(this.appointmentForm);
         this.addModalOpen = true;
     }
 

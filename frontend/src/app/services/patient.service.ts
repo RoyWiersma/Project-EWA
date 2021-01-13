@@ -14,6 +14,8 @@ export class PatientService {
     }
 
     public updatePatient(patient: Patient, id: number): Observable<any> {
+        Object.keys(patient).forEach(key => patient[key] === '' ? patient[key] = null : patient[key]);
+
         return this.http.put(`${this.API_URL}/${id}`, JSON.stringify(patient), {
             headers: {
                 authorization: localStorage.getItem('jwt') || null,
