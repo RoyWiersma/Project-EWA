@@ -68,7 +68,7 @@ export class DossierComponent implements OnInit {
                     this.showData = true;
                 }
                 else {
-                    console.log('er ging iets mis');
+                    console.error('er ging iets mis');
                 }
             }, error => {
                 if (error instanceof HttpErrorResponse){
@@ -92,7 +92,6 @@ export class DossierComponent implements OnInit {
             document.getElementById('loginModalButton').click();
             this.dossierService.getPatientDossier().subscribe((result: Patient) => {
                 this.patientDossier = result[0];
-                console.log(this.patientDossier);
             });
         }
     }

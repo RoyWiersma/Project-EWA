@@ -21,7 +21,6 @@ export class AdminService {
     }
 
     public setAdmin(gp: GP): Observable<any> {
-        console.log(1);
         return this.httpClient.patch(`${this.API_URL}/admin/setAdmin`, JSON.stringify(gp), {
             headers: { authorization: localStorage.getItem('jwt') || null, 'Content-Type': 'application/json' }
         });

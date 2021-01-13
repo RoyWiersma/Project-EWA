@@ -91,8 +91,6 @@ export class PatientDetailsComponent implements OnInit {
         this.dossierModalOpen = true;
         this.dossierData = null;
         this.dossierData = new Dossier();
-
-        console.log(this.dossierData.id === undefined);
     }
 
     saveMediaItem(): void {

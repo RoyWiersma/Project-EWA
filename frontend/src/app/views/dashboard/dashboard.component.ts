@@ -7,7 +7,6 @@ import {Patient} from '../../models/Patient';
 import {AgendaItem} from '../../models/AgendaItem';
 import {isAfter} from 'date-fns';
 import {Router} from '@angular/router';
-import {Message} from '../../models/Message';
 import {Chat} from '../../models/Chat';
 
 @Component({
@@ -59,25 +58,18 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit(): void {
         this.currentUser = this.loginService.getLoggedInUser;
+
         this.dashboardService.getPatientNames()
             .subscribe(response => {
                 this.patients = response;
             });
         if (this.isGP()) {
-            // Getters for doctor dashboard
-            // this.dashboardService.getPatients();
-            // this.dashboardService.patient.subscribe((res: Patient) => {
-            //     this.patient = res;
-            // });
-
             this.dashboardService.getPatientAppointment().subscribe((appointment: AgendaItem[]) => {
                 this.patientData = appointment.filter(item => isAfter(new Date(item.start), new Date()));
             });
-
         } else {
             this.dashboardService.getPatientAppointment().subscribe((appointment: AgendaItem[]) => {
                 this.doctorData = appointment.filter(item => isAfter(new Date(item.start), new Date()));
-                // console.log(this.doctorData);
             });
 
             this.dashboardService.getDoctorName().subscribe((dat: GP) => {
@@ -87,19 +79,7 @@ export class DashboardComponent implements OnInit {
 
         this.dashboardService.getChat().subscribe((chat: Chat[]) => {
             this.chats = chat;
-            console.log(this.chats);
         });
-
-        // // Getters for patient dashboard
-
-    // }
-        //
-
-        // // }
-        //
-        // if (this.loginService.getLoggedInUser instanceof GP) {
-        //     this.loggedInGp = this.loginService.getLoggedInUser as GP;
-        // }
     }
 
 }
