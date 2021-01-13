@@ -184,7 +184,10 @@
                 <h2 class="top-text" *ngIf="isPatient()">Uw laatste chat was
                     met: <h6>{{chat.doctor.firstName}} {{chat.doctor.middleName}} {{chat.doctor.lastName}}</h6></h2>
             </div>
-            <button class="btn btn-primary" (click)="redirectToChat()">Ga naar chat</button>
+            <button class="btn btn-primary" (click)="redirectToChat()" *ngIf="chats.length.valueOf() != 0">Ga naar chat</button>
+            <div *ngIf="chats.length.valueOf() == 0">
+                U heeft nog geen chats!
+            </div>
         </div>
 
     </div>
