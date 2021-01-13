@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AgendaItem} from '../models/AgendaItem';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class AgendaService {
 
-    private API_URL = 'http://localhost:8085/agenda';
 
     constructor(private httpClient: HttpClient) { }
 
     public getAgendaItems(): Observable<any> {
-        return this.httpClient.get(this.API_URL, {
+        return this.httpClient.get(`${environment.apiUrl}/agenda`, {
             headers: { authorization: localStorage.getItem('jwt') || null }
         });
     }
@@ -23,7 +24,7 @@ export class AgendaService {
     }
 
     public deleteAgendaItem(id: number | string): Observable<any> {
-        return this.httpClient.delete(`${this.API_URL}/${id}`, {
+        return this.httpClient.delete(`${environment.apiUrl}/agenda/${id}`, {
             headers: { authorization: localStorage.getItem('jwt') || null }
         });
     }
@@ -32,7 +33,7 @@ export class AgendaService {
         const { title, description, patient, start, end, onLocation} = data;
 
         return this.httpClient.post(
-            this.API_URL,
+            `${environment.apiUrl}/agenda`,
             JSON.stringify({title, description, patient: {id: patient}, start, end, onLocation}),
             {
                 headers: {
@@ -49,7 +50,7 @@ export class AgendaService {
         headers.set('content-type', 'application/json');
 
         return this.httpClient.put(
-            `${this.API_URL}/${id}`,
+            `${environment.apiUrl}/agenda/${id}`,
             JSON.stringify({title, description, start, end, onLocation}),
             {
                 headers: {

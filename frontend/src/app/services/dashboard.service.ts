@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {HttpClient } from '@angular/common/http';
+import {Observable } from 'rxjs';
 import {AgendaItem} from '../models/AgendaItem';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -11,20 +12,18 @@ export class DashboardService {
     public patientData: AgendaItem[];
     public doctorAppointment: AgendaItem[];
 
-    private readonly API_URL = 'http://localhost:8085/dashboard';
-
     constructor(private httpClient: HttpClient) {
     }
 
     // Getters used for doctor dashboard
     public getPatientNames(): Observable<any> {
-        return this.httpClient.get(this.API_URL, {
+        return this.httpClient.get(`${environment.apiUrl}/dashboard`, {
             headers: { authorization: localStorage.getItem('jwt') || null }
         });
     }
 
     public getPatientAppointment(): Observable<any> {
-        return this.httpClient.get(`${this.API_URL}/appointment`, {
+        return this.httpClient.get(`${environment.apiUrl}/dashboard/appointment`, {
             headers: { authorization: localStorage.getItem('jwt') || null }
         });
     }
@@ -34,7 +33,7 @@ export class DashboardService {
     }
 
     public getChat(): Observable<any> {
-        return this.httpClient.get(`${this.API_URL}/chat`, {
+        return this.httpClient.get(`${environment.apiUrl}/dashboard/chat`, {
             headers: { authorization: localStorage.getItem('jwt') || null }
         });
     }
@@ -45,7 +44,7 @@ export class DashboardService {
     }
 
     public getDoctorName(): Observable<any> {
-        return this.httpClient.get(`${this.API_URL}/doctor`, {
+        return this.httpClient.get(`${environment.apiUrl}/dashboard/doctor`, {
             headers: { authorization: localStorage.getItem('jwt') || null }
         });
 

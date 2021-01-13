@@ -6,13 +6,12 @@ import {Type} from '../models/Type';
 import {User} from '../models/User';
 import {Patient} from '../models/Patient';
 import {GP} from '../models/GP';
+import {environment} from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
-
-    private readonly API_URL = 'http://localhost:8085';
 
     constructor(private httpClient: HttpClient) {}
 
@@ -38,14 +37,14 @@ export class LoginService {
     }
 
     public postLoginForm(email: string, password: string): Observable<any>{
-        return this.httpClient.post<any>(`${this.API_URL}/login`, JSON.stringify({email, password}), {
+        return this.httpClient.post<any>(`${environment.apiUrl}/login`, JSON.stringify({email, password}), {
             observe: 'response' as 'body',
             headers: { 'content-type': 'application/json' }
         });
     }
 
     public getLoginData(token: string, email: string): Promise<any> {
-        return this.httpClient.get(`${this.API_URL}/user/email?email=${email}`, {
+        return this.httpClient.get(`${environment.apiUrl}/user/email?email=${email}`, {
             headers: { Authorization: token }
         }).toPromise();
     }

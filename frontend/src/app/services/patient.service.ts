@@ -2,13 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Patient} from '../models/Patient';
 import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PatientService {
-
-    private API_URL = 'http://localhost:8085/patient';
 
     constructor(private http: HttpClient) {
     }
@@ -16,7 +15,7 @@ export class PatientService {
     public updatePatient(patient: Patient, id: number): Observable<any> {
         Object.keys(patient).forEach(key => patient[key] === '' ? patient[key] = null : patient[key]);
 
-        return this.http.put(`${this.API_URL}/${id}`, JSON.stringify(patient), {
+        return this.http.put(`${environment.apiUrl}/patient/${id}`, JSON.stringify(patient), {
             headers: {
                 authorization: localStorage.getItem('jwt') || null,
                 'content-type': 'application/json'
