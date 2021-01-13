@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Chat} from '../../models/Chat';
 import {Message} from '../../models/Message';
 import {format} from 'date-fns';
+import {environment} from '../../../environments/environment';
 
 @Component({
     selector: 'app-chat',
@@ -12,8 +13,6 @@ import {format} from 'date-fns';
     styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-
-    private readonly API_URL = 'http://localhost:8085/chat';
 
     isDoctor: boolean;
     chats: Chat[];
@@ -33,7 +32,7 @@ export class ChatComponent implements OnInit {
 
     ngOnInit(): void {
         this.isDoctor = this.loginService.getLoggedInUser instanceof GP;
-        this.Server.get(this.API_URL, {
+        this.Server.get(`${environment.apiUrl}/chat`, {
             headers: { authorization: localStorage.getItem('jwt') || null }
         }).subscribe((chat: Chat[]) => {
             this.chats = chat;
@@ -51,7 +50,7 @@ export class ChatComponent implements OnInit {
     getMessages(id: string): void {
         this.currentId = id;
 
-        this.Server.get(`${this.API_URL}/${id}`, {
+        this.Server.get(`${environment.apiUrl}/chat/${id}`, {
             headers: { authorization: localStorage.getItem('jwt') || null }
         }).subscribe((messages: Message[]) => {
             this.messages = messages.map(message => {
@@ -75,7 +74,7 @@ export class ChatComponent implements OnInit {
     sendMessage(): void {
         this.newMessage.dateTime = new Date().toISOString();
 
-        this.Server.post(`${this.API_URL}/${this.currentId}/message`, JSON.stringify(this.newMessage), {
+        this.Server.post(`${environment.apiUrl}/chat/${this.currentId}/message`, JSON.stringify(this.newMessage), {
             headers: {
                 'Content-Type': 'application/json',
                 authorization: localStorage.getItem('jwt') || null,
