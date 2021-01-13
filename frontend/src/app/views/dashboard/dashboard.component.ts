@@ -43,8 +43,10 @@ export class DashboardComponent implements OnInit {
     }
 
     redirectToDossier(): void {
-        this.router.navigate(['home/dossier']);
-        document.getElementById('modal-span').click();
+        if (this.isGP()) {
+            this.router.navigate(['home/patients']);
+            document.getElementById('modal-span').click();
+        }
     }
 
     redirectToAgenda(): void {

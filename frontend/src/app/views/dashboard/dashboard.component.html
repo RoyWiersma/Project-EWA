@@ -24,7 +24,7 @@
                                 <th>Patient</th>
                                 <th>op Locatie</th>
                                 <th>Datum & tijd</th>
-                                <th>Notitie</th>
+                                <th>Titel</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -36,7 +36,7 @@
                                     <ng-template #onlineAppointment>Online</ng-template>
                                 </td>
                                 <td>{{ item.start | date:"dd-MM-yy hh:mm"}}</td>
-                                <td>{{ item.description }}</td>
+                                <td>{{ item.title }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -163,8 +163,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
         <div *ngIf="isPatient()">
             <h2 class="top-text"> Uw Dokter: </h2>
@@ -176,7 +174,8 @@
             </table>
         </div>
     </div>
-
+        </div>
+    </div>
     <div class="col">
         <div class="card bg-light h-100">
             <div class="card-body" *ngFor="let chat of chats.slice(0, 1)">
