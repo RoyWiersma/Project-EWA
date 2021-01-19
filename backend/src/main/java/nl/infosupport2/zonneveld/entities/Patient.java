@@ -31,9 +31,8 @@ public class Patient extends User {
     public Patient() {
     }
 
-    public Patient(Integer id, String firstName, String lastName, String middleName, String email, String phoneNumber, String mobileNumber, GP doctor) {
-        super(id, firstName, lastName, middleName, email, phoneNumber, mobileNumber);
-        this.appointments = appointments;
+    public Patient(String firstName, String lastName, String middleName, String email, String phoneNumber, String mobileNumber, GPC gpc, String password, GP doctor) {
+        super(firstName, lastName, middleName, email, phoneNumber, mobileNumber, gpc, password);
         this.doctor = doctor;
     }
 
@@ -41,36 +40,37 @@ public class Patient extends User {
         this.appointments = appointments;
     }
 
-        public List<Appointment> getAppointments () {
-            return appointments;
-        }
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
 
-        public void addAppointment (Appointment appointment){
-            this.appointments.add(appointment);
-        }
+    public void addAppointment(Appointment appointment) {
+        this.appointments.add(appointment);
+    }
 
-        public GP getDoctor () {
-            return doctor;
-        }
+    public GP getDoctor() {
+        return doctor;
+    }
 
-        public void setDoctor (GP doctor) {
-            this.doctor = doctor;
-        }
-            public List<Chat> getChats () {
-                return chats;
-            }
+    public void setDoctor(GP doctor) {
+        this.doctor = doctor;
+    }
 
-            public void addChat (Chat chat){
-                chats.add(chat);
-            }
+    public List<Chat> getChats() {
+        return chats;
+    }
 
-            public Dossier getDossier () {
-                return dossier;
-            }
+    public void addChat(Chat chat) {
+        chats.add(chat);
+    }
 
-            public void setDossier (Dossier dossier){
-                this.dossier = dossier;
+    public Dossier getDossier() {
+        return dossier;
+    }
 
-            }
-        }
+    public void setDossier(Dossier dossier) {
+        this.dossier = dossier;
+
+    }
+}
 
