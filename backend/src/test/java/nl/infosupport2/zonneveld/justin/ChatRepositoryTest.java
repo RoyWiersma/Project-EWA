@@ -1,4 +1,4 @@
-package nl.infosupport2.zonneveld;
+package nl.infosupport2.zonneveld.justin;
 
 import nl.infosupport2.zonneveld.entities.Chat;
 import nl.infosupport2.zonneveld.entities.GP;
