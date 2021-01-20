@@ -64,9 +64,10 @@ public class ChatRepositoryTest {
 
         Chat chat = new Chat("we112-e23qq", doctor1, patient1);
         Chat chat2 = new Chat("we11222-eqq", doctor1, patient2);
-        Chat chat3 = new Chat("w123123e112-eqq", doctor1, patient3);
+        Chat chat3 = new Chat("we11222-e333qq", doctor1, patient2);
+        Chat chat4 = new Chat("w123123e112-eqq", doctor1, patient3);
 
-        chatRepository.saveAll(List.of(chat, chat2, chat3));
+        chatRepository.saveAll(List.of(chat, chat2, chat3, chat4));
     }
 
     @AfterEach
@@ -81,7 +82,7 @@ public class ChatRepositoryTest {
     void doctor1ShouldHave3ChatRooms() {
         List<Chat> chats = chatRepository.findByDoctor(doctor1);
 
-        assertEquals(3, chats.size());
+        assertEquals(4, chats.size());
     }
 
     @Test
@@ -96,6 +97,13 @@ public class ChatRepositoryTest {
         List<Chat> chats = chatRepository.findByPatient(patient1);
 
         assertEquals(1, chats.size());
+    }
+
+    @Test
+    void patient2ShouldHave2ChatRooms() {
+        List<Chat> chats = chatRepository.findByPatient(patient2);
+
+        assertEquals(2, chats.size());
     }
 
     @Test
