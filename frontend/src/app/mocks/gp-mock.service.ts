@@ -3,6 +3,7 @@ import {Observable, of} from 'rxjs';
 import {GP} from '../models/GP';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,5 +32,9 @@ export class GpMockService {
         });
     }
 
-
+    public deleteGP(id: number): Observable<any> {
+        return of ( {
+            gps: this.gps.splice( this.gps.indexOf(this.gps.find(gp => gp.id === id)), 1)
+        });
+    }
 }
