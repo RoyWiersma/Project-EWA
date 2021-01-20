@@ -50,4 +50,16 @@ describe('GpsComponent', () => {
             expect(component.openModal).toHaveBeenCalled();
         });
     }));
+  it('should delete 1 GP', async(() => {
+        spyOn(component, 'deleteGP');
+        const button = fixture.debugElement.nativeElement.querySelector('#deleteGP');
+        button[0].click();
+        console.log(button);
+
+        const dbElement: DebugElement = fixture.debugElement;
+        const tableRows: HTMLTableRowElement[] = dbElement.nativeElement.querySelectorAll('tbody tr');
+        fixture.whenStable().then(() => {
+            expect(tableRows.length).toEqual(9);
+        });
+    }));
 });
