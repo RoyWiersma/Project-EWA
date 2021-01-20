@@ -3,6 +3,7 @@ package nl.infosupport2.zonneveld.config;
 import nl.infosupport2.zonneveld.filters.CustomAuthenticationFilter;
 import nl.infosupport2.zonneveld.filters.CustomAuthorizationFilter;
 import nl.infosupport2.zonneveld.services.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
