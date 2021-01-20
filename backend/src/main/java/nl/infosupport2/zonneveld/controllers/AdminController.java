@@ -29,7 +29,7 @@ public class AdminController {
     }
 
     @PatchMapping("setRemoveAdmin")
-    public GP getAllGp(@RequestBody GP admin) {
+    public GP setRemoveAdmin(@RequestBody GP admin) {
         GP gp = repository.findById(admin.getId()).orElseThrow(() -> new ItemNotFoundException("User not found"));
         gp.setIsAdmin(false);
         return repository.save(gp);
