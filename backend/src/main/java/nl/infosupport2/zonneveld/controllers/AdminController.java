@@ -34,4 +34,9 @@ public class AdminController {
         gp.setIsAdmin(false);
         return repository.save(gp);
     }
+
+    @DeleteMapping("deleteAdmin")
+    public void deleteGp(@RequestBody GP gp){
+        repository.delete(gp);
+    }
 }
