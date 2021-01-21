@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @DataJpaTest
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
@@ -63,10 +64,15 @@ public class AdminRepositoryTest {
     }
 
     @Test
-    void getGPoffPatient() {
+    void doesGetGPGiveCorrectDoctor() {
         assertEquals(doctor1.getId(), gpRepository.getGP(patient1).iterator().next().getId());
         assertEquals(doctor1.getId(), gpRepository.getGP(patient2).iterator().next().getId());
         assertEquals(doctor2.getId(), gpRepository.getGP(patient3).iterator().next().getId());
         assertEquals(doctor2.getId(), gpRepository.getGP(patient4).iterator().next().getId());
+
+        assertNotEquals(doctor2.getId(), gpRepository.getGP(patient1).iterator().next().getId());
+        assertNotEquals(doctor2.getId(), gpRepository.getGP(patient2).iterator().next().getId());
+        assertNotEquals(doctor1.getId(), gpRepository.getGP(patient3).iterator().next().getId());
+        assertNotEquals(doctor1.getId(), gpRepository.getGP(patient4).iterator().next().getId());
     }
 }
