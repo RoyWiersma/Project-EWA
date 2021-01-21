@@ -33,13 +33,13 @@ describe('DossierService', () => {
         // Fake password
         const fakepassword = 'password';
 
-        // subscribing on restGetTask method with id as parameter
+        // subscribing on postPassword
         service.postPassword(fakepassword).subscribe((password) => {
-            // expects task to be equal to dummyTask
+            // expects task to be equal to fake password
             expect(password).toEqual(fakepassword);
         });
 
-        // declaring request which expects the api url endpoint
+        // declaring request which expects the endpoint
         const req = httpMock.expectOne('http://localhost:8085/dossier/login');
 
         // expects request method to be a get request

@@ -50,6 +50,7 @@ describe('HomeComponent', () => {
     });
 
     fit('When page is loaded the input values should be empty', async(() => {
+        // Checks if email and password don't have any value when entering the page
         expect(component.email && component.password).toEqual(undefined);
     }));
 
