@@ -19,7 +19,6 @@ import java.util.Optional;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 public class DossierRepositoryTest {
     @Autowired
     private GPCRepository gpcRepository;
