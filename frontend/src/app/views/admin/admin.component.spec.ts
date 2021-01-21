@@ -4,7 +4,7 @@ import {AdminComponent} from './admin.component';
 import {AdminService} from '../../services/admin.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AdminMockService} from '../../mocks/admin-mock.service';
-import {DebugElement} from "@angular/core";
+import {DebugElement} from '@angular/core';
 
 describe('AdminComponent', () => {
     let component: AdminComponent;
