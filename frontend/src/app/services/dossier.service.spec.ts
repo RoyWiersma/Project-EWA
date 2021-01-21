@@ -45,7 +45,7 @@ describe('DossierService', () => {
         // expects request method to be a get request
         expect(req.request.method).toBe('POST');
 
-        // flush dummyTask
+        // flush fakePassword
         req.flush(fakepassword);
     });
 
@@ -56,7 +56,7 @@ describe('DossierService', () => {
             lastname: 'lastname',
         };
 
-        // subscribing on getPatientNames method
+        // subscribing on getPatientDossier method
         service.getPatientDossier().subscribe((data) => {
             // expects data to be equal to fakeData instantiated above
             expect(data).toEqual(fakeData);
@@ -68,7 +68,7 @@ describe('DossierService', () => {
         // expects request method to be a get request
         expect(req.request.method).toBe('GET');
 
-        // flush dummyTask
+        // flush fakeData
         req.flush(fakeData);
     });
 });

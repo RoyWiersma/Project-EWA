@@ -23,6 +23,7 @@ describe('DashboardService', () => {
         httpMock = TestBed.inject(HttpTestingController);
     });
 
+    // After each test
     afterEach(() => {
         httpMock.verify();
     });
@@ -44,13 +45,13 @@ describe('DashboardService', () => {
             expect(data).toEqual(fakeData);
         });
 
-        // declaring request which expects the api url endpoint
+        // declaring request which expects the endpoint
         const req = httpMock.expectOne('http://localhost:8085/dashboard/doctor');
 
-        // expects request method to be a get request
+        // request method should be a 'GET' method
         expect(req.request.method).toBe('GET');
 
-        // flush dummyTask
+        // get rid of fakeData
         req.flush(fakeData);
     });
 

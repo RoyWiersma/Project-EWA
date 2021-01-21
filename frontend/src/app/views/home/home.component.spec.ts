@@ -7,7 +7,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 
 describe('HomeComponent', () => {
     let component: HomeComponent;
-    let componentHtml: HTMLElement;
+    let html: HTMLElement;
     let fixture: ComponentFixture<HomeComponent>;
 
     beforeEach(async(() => {
@@ -27,7 +27,7 @@ describe('HomeComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(HomeComponent);
         component = fixture.componentInstance;
-        componentHtml = fixture.debugElement.nativeElement;
+        html = fixture.debugElement.nativeElement;
         fixture.detectChanges();
     });
 
@@ -36,14 +36,14 @@ describe('HomeComponent', () => {
     });
 
 
-    fit('should return error when no values are given to the input', () => {
+    fit('should return error when button is clicked without input', () => {
         // Retrieve the modalButton by id
-        const modalButton: HTMLButtonElement = componentHtml.querySelector('#loginButton');
+        const modalButton: HTMLButtonElement = html.querySelector('#loginButton');
         // Open the modal
         modalButton.click();
 
         // Retrieve the loginButton by id
-        const loginButton: HTMLButtonElement = componentHtml.querySelector('#form-login');
+        const loginButton: HTMLButtonElement = html.querySelector('#form-login');
 
         // Click login button with no values given and expect it to throw an error
         expect(loginButton.click).toThrowError();
