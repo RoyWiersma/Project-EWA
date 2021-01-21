@@ -1,9 +1,9 @@
 import {TestBed} from '@angular/core/testing';
 
 import {DashboardService} from './dashboard.service';
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {RouterTestingModule} from "@angular/router/testing";
-import {DatePipe} from "@angular/common";
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {DatePipe} from '@angular/common';
 
 describe('DashboardService', () => {
     let service: DashboardService;

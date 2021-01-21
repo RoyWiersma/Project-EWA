@@ -4,8 +4,6 @@ import {HomeComponent} from './home.component';
 import {LoginService} from '../../services/login.service';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterTestingModule} from '@angular/router/testing';
-import {errorObject} from 'rxjs/internal-compatibility';
-import empty = jasmine.empty;
 
 describe('HomeComponent', () => {
     let component: HomeComponent;
