@@ -33,33 +33,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @TestPropertySource(properties = "app.medical-media-directory=uploads/media")
 public class AdminControllerTest {
     @Autowired
-    private GPCRepository gpcRepository;
-
-    @Autowired
     private MockMvc mvc;
-
-    @MockBean
-    private GPRepository repository;
-
-    private GP doctor1, doctor2;
-
-    @BeforeEach
-    void setup() {
-        GPC gpc = new GPC("Test GPC", "test123", "1234AB", "test@test.nl", "123456789", "123456789", true);
-        gpc = gpcRepository.save(gpc);
-
-        doctor1 = new GP("Test", "Doctor", "de", "dokter@test.nl", "123455", "12312", gpc, "test", "test", true);
-        doctor1 = repository.save(doctor1);
-
-        doctor2 = new GP("Test1", "Doctor", "de", "dokter1@test.nl", "123485", "92312", gpc, "test", "test", true);
-        doctor2 = repository.save(doctor2);
-    }
-
-    @AfterEach
-    void clear() {
-        repository.deleteAll();
-        gpcRepository.deleteAll();
-    }
 
     @Test
     void expect403WhenTryingToGetListOfGPWithoutAuthentication() throws Exception {
