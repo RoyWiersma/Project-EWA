@@ -5,6 +5,8 @@ import {AdminService} from '../../services/admin.service';
 import {HttpClientModule} from '@angular/common/http';
 import {AdminMockService} from '../../mocks/admin-mock.service';
 import {DebugElement} from "@angular/core";
+import {DoctorService} from '../../services/doctor.service';
+import {DoctorMockService} from '../../mocks/doctor-mock.service';
 
 describe('AdminComponent', () => {
     let component: AdminComponent;
@@ -19,8 +21,13 @@ describe('AdminComponent', () => {
             providers: [
                 {
                     provide: AdminService,
-                    useClass: AdminMockService
+                    useClass: AdminMockService,
+                },
+                {
+                    provide: DoctorService,
+                    useClass: DoctorMockService,
                 }
+
             ]
         })
             .compileComponents();

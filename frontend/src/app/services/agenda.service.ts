@@ -29,7 +29,7 @@ export class AgendaService {
         });
     }
 
-    private postRequest(data: AgendaItem): Observable<any> {
+    public postRequest(data: AgendaItem): Observable<any> {
         const { title, description, patient, start, end, onLocation} = data;
 
         return this.httpClient.post(

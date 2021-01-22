@@ -26,7 +26,6 @@ describe('AdminService', () => {
 
     it('should call getAllGp() and return observable', () => {
         service.getAllGp();
-
         expect(service.getAllGp).toHaveBeenCalled();
     });
 
